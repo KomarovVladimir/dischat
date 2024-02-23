@@ -1,3 +1,4 @@
 export const routes = {
-    baseRoute: "/"
+    baseRoute: "/",
+    room: "rooms/:roomId"
 };
