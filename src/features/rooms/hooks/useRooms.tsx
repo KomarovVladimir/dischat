@@ -1,6 +1,11 @@
 import { useState } from "react";
 
+import { roomsSelectors } from "../slice";
+import { useSelector } from "react-redux";
+
 export const useRooms = () => {
+    const rooms = useSelector(roomsSelectors.selectAll);
+
     const [creationOpen, setCreationOpen] = useState(false);
 
     const handleOpen = () => {
@@ -12,7 +17,7 @@ export const useRooms = () => {
     };
 
     return {
-        // rooms,
+        rooms,
         creationOpen,
         handleOpen,
         handleClose

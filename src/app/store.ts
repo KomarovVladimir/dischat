@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
 
-import { roomsReducer } from "features";
+import { roomsSlice } from "features";
 
 import { api } from "./services/api";
 
 export const store = configureStore({
     reducer: {
-        rooms: roomsReducer,
+        rooms: roomsSlice.reducer,
         [api.reducerPath]: api.reducer
     },
     middleware: (getDefaultMiddleware) =>
@@ -16,3 +17,5 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export const roomsSelector: TypedUseSelectorHook<RootState> = useSelector;

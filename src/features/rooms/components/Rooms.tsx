@@ -7,7 +7,9 @@ import { CreationDialog } from "./CreationDialog";
 import { useRooms } from "../hooks";
 
 export const Rooms = () => {
-    const { creationOpen, handleOpen, handleClose } = useRooms();
+    const { rooms, creationOpen, handleOpen, handleClose } = useRooms();
+
+    console.log(rooms);
 
     return (
         <List>

@@ -1,10 +1,13 @@
-import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { EntityId, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { RoomData } from "../types";
+export type RoomEntity = {
+    id: EntityId;
+    name: string;
+};
 
-const roomsAdapter = createEntityAdapter<RoomData>();
+const roomsAdapter = createEntityAdapter<RoomEntity>();
 
-const roomsSlice = createSlice({
+export const roomsSlice = createSlice({
     name: "rooms",
     initialState: roomsAdapter.getInitialState(),
     reducers: {
@@ -13,6 +16,6 @@ const roomsSlice = createSlice({
     }
 });
 
-export const roomsReducer = roomsSlice.reducer;
-
 export const { roomAdded, roomRemoved } = roomsSlice.actions;
+
+export const roomsSelectors = roomsAdapter.getSelectors(({ rooms }) => rooms);
