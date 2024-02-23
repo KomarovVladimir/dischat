@@ -3,7 +3,7 @@ import { EntityId, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 export type RoomEntity = {
     id: EntityId;
     name: string;
-    imgSrc: string;
+    imgSrc?: string;
 };
 
 const roomsAdapter = createEntityAdapter<RoomEntity>();

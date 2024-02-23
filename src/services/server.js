@@ -10,8 +10,8 @@ export const startFakeServer = () => {
 
         factories: {
             room: Factory.extend({
-                name(index) {
-                    return `Room ${index}`;
+                name(i) {
+                    return `Room ${i}`;
                 }
             }),
             message: Factory.extend({
@@ -29,14 +29,20 @@ export const startFakeServer = () => {
             this.namespace = "/api/v1";
 
             this.get("/rooms");
-            this.post("/rooms", (schema) => {
-                const room = schema.rooms.create();
+            this.post("/rooms", (schema, request) => {
+                const body = JSON.parse(request.requestBody);
+                const room = schema.rooms.create(body);
 
                 for (let i = 0; i < 10; i++) {
                     schema.messages.create();
                 }
 
-                return room;
+                console.log(room.name);
+
+                return {
+                    id: room.id,
+                    name: room.name
+                };
             });
 
             this.get("/rooms/:roomId", (schema, { params: { roomId } }) => {

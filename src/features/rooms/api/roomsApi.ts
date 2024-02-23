@@ -1,14 +1,16 @@
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import { EntityId } from "@reduxjs/toolkit";
 
 import { api } from "app/services/api";
-import { Id } from "types";
 
 import { CreateRoomRequest } from "../types";
+import { RoomEntity } from "../slice";
 
 //TODO: Replace body with params
+//TODO: Update the return value
 export const roomsApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        createRoom: builder.mutation<QueryReturnValue, CreateRoomRequest>({
+        createRoom: builder.mutation<RoomEntity, CreateRoomRequest>({
             query: (body) => ({
                 url: "/rooms",
                 method: "POST",
@@ -16,7 +18,7 @@ export const roomsApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Rooms"]
         }),
-        joinRoom: builder.mutation<QueryReturnValue, Id>({
+        joinRoom: builder.mutation<QueryReturnValue, EntityId>({
             query: (roomId) => ({
                 url: `/rooms/${roomId}/join`,
                 method: "POST"

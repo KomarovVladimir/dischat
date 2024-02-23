@@ -1,7 +1,9 @@
+import { QueryStatus } from "@reduxjs/toolkit/query";
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { useCreateRoomMutation } from "../api";
-import { QueryStatus } from "@reduxjs/toolkit/query";
+import { RoomEntity, roomAdded } from "../slice";
 
 const initialValues = {
     name: "",
@@ -9,7 +11,8 @@ const initialValues = {
 };
 
 export const useCreationDialog = (onClose: () => void) => {
-    const [createRoom, { status }] = useCreateRoomMutation();
+    const dispatch = useDispatch();
+    const [createRoom, { data, status }] = useCreateRoomMutation();
     const [inputValues, setInputValues] = useState(initialValues);
 
     const handleChange =
@@ -23,6 +26,7 @@ export const useCreationDialog = (onClose: () => void) => {
     useEffect(() => {
         switch (status) {
             case QueryStatus.fulfilled:
+                dispatch(roomAdded(data as RoomEntity));
                 setInputValues(initialValues);
                 onClose();
                 break;

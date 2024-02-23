@@ -8,16 +8,16 @@ import { useRoomCard } from "../hooks";
 
 export type RoomProps = {
     id: Id;
-    imgSrc?: string;
     name: string;
+    imgSrc?: string;
 };
 
 //TODO: Add area attributes
-//TODO: Move and style the menu
 //TODO: Add an deleting alert dialog
-//TODO: Make the whole card clickable
 export const Room = ({ id, imgSrc, name }: RoomProps) => {
     const { handleNavigate } = useRoomCard(id);
+
+    // console.log(id, imgSrc, name);
 
     return (
         <ListItem
