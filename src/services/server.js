@@ -3,8 +3,6 @@ import { createServer, Model, Factory } from "miragejs";
 
 export const startFakeServer = () => {
     const server = createServer({
-        logging: true,
-
         models: {
             room: Model,
             message: Model
@@ -27,17 +25,15 @@ export const startFakeServer = () => {
         },
 
         routes() {
-            this.namespace = "/api";
+            this.urlPrefix = "http://localhost:5000";
+            this.namespace = "/api/v1";
 
             this.get("/rooms");
             this.post("/rooms", (schema) => {
                 const room = schema.rooms.create();
 
-                for (let i = 0; i < 3; i++) {
-                    schema.messages.create({
-                        roomId: room.id,
-                        text: `Message ${i + 1}`
-                    });
+                for (let i = 0; i < 10; i++) {
+                    schema.messages.create();
                 }
 
                 return room;

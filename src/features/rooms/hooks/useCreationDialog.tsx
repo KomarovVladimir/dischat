@@ -1,6 +1,7 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 
 import { useCreateRoomMutation } from "../api";
+import { QueryStatus } from "@reduxjs/toolkit/query";
 
 const initialValues = {
     name: "",
@@ -8,7 +9,7 @@ const initialValues = {
 };
 
 export const useCreationDialog = (onClose: () => void) => {
-    const [createRoom] = useCreateRoomMutation();
+    const [createRoom, { status }] = useCreateRoomMutation();
     const [inputValues, setInputValues] = useState(initialValues);
 
     const handleChange =
@@ -19,12 +20,31 @@ export const useCreationDialog = (onClose: () => void) => {
             });
         };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        createRoom({ name: inputValues.name });
-        setInputValues(initialValues);
-        onClose();
-    };
+    useEffect(() => {
+        switch (status) {
+            case QueryStatus.fulfilled:
+                setInputValues(initialValues);
+                onClose();
+                break;
+            default:
+                break;
+        }
+    }, [status]);
+
+    const handleSubmit =
+        (type: "create" | "join") => (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            switch (type) {
+                case "create":
+                    createRoom({ name: inputValues.name });
+                    break;
+                case "join":
+                    //TODO: Add
+                    break;
+                default:
+                    break;
+            }
+        };
 
     const handleClose = () => {
         setInputValues(initialValues);

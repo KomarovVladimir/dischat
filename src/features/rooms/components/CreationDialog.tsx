@@ -20,6 +20,7 @@ type CreationDialogProps = {
 };
 
 //TODO: Add i18n
+//TODO: Add reject error handling
 export const CreationDialog = ({ open, onClose }: CreationDialogProps) => {
     const {
         inputValues: { name, code },
@@ -30,7 +31,7 @@ export const CreationDialog = ({ open, onClose }: CreationDialogProps) => {
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
-            <Box component="form" onSubmit={handleSubmit}>
+            <Box component="form" onSubmit={handleSubmit("create")}>
                 <DialogContent>
                     <Stack spacing={2}>
                         {name && <DialogTitle>Create a new room</DialogTitle>}

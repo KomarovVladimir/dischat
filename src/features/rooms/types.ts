@@ -1,10 +1,10 @@
-import { Id } from "types";
+import { EntityId } from "@reduxjs/toolkit";
 
 export type CreateRoomRequest = {
     name: string;
 };
 
 export type RoomData = {
-    id: Id;
+    id: EntityId;
     name: string;
 };
