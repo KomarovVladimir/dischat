@@ -22,8 +22,8 @@ export const ListItem = ({
     ...props
 }: ListProps & ListItemProps) => (
     <MuiListItem disablePadding {...props}>
-        <ListItemButton>
-            {icon && <ListItemIcon>{icon}</ListItemIcon>}
+        <ListItemButton dense>
+            {icon && <ListItemIcon sx={{ minWidth: 0 }}>{icon}</ListItemIcon>}
             {text && <ListItemText primary={text} />}
         </ListItemButton>
     </MuiListItem>
