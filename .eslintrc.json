@@ -1,0 +1,48 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:storybook/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint/eslint-plugin"],
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "rules": {
+        "endOfLine": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "semi": true,
+                "endOfLine": "auto",
+                "trailingComma": "none",
+                "singleQuote": false,
+                "tabWidth": 4,
+                "printWidth": 80
+            }
+        ],
+        "quotes": ["error", "double"],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "args": "none"
+            }
+        ],
+        "no-empty": "warn"
+    }
+}
