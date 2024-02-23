@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { roomsReducer } from "features";
+
 import { api } from "./services/api";
 
 export const store = configureStore({
     reducer: {
+        rooms: roomsReducer,
         [api.reducerPath]: api.reducer
     },
     middleware: (getDefaultMiddleware) =>
