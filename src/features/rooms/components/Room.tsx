@@ -17,8 +17,6 @@ export type RoomProps = {
 export const Room = ({ id, imgSrc, name }: RoomProps) => {
     const { handleNavigate } = useRoomCard(id);
 
-    // console.log(id, imgSrc, name);
-
     return (
         <ListItem
             onClick={handleNavigate}

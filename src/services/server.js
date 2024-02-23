@@ -37,8 +37,6 @@ export const startFakeServer = () => {
                     schema.messages.create();
                 }
 
-                console.log(room.name);
-
                 return {
                     id: room.id,
                     name: room.name
