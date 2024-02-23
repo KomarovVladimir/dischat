@@ -1,2 +1,2 @@
-export * from "./roomsManager";
+export * from "./rooms";
 export * from "./chat";

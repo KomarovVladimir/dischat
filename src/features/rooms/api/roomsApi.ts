@@ -6,7 +6,7 @@ import { Id } from "types";
 import { CreateRoomRequest } from "../types";
 
 //TODO: Replace body with params
-export const roomsManagerApi = api.injectEndpoints({
+export const roomsApi = api.injectEndpoints({
     endpoints: (builder) => ({
         createRoom: builder.mutation<QueryReturnValue, CreateRoomRequest>({
             query: (body) => ({
@@ -16,33 +16,14 @@ export const roomsManagerApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Rooms"]
         }),
-        deleteRoom: builder.mutation<QueryReturnValue, Id>({
-            query: (id) => ({
-                url: `/rooms/${id}`,
-                method: "DELETE"
-            }),
-            invalidatesTags: ["Rooms"]
-        }),
         joinRoom: builder.mutation<QueryReturnValue, Id>({
             query: (roomId) => ({
                 url: `/rooms/${roomId}/join`,
                 method: "POST"
             }),
             invalidatesTags: ["Rooms"]
-        }),
-        leaveRoom: builder.mutation<QueryReturnValue, Id>({
-            query: (roomId) => ({
-                url: `/rooms/${roomId}/join`,
-                method: "DELETE"
-            }),
-            invalidatesTags: ["Rooms"]
         })
     })
 });
 
-export const {
-    useJoinRoomMutation,
-    useLeaveRoomMutation,
-    useCreateRoomMutation,
-    useDeleteRoomMutation
-} = roomsManagerApi;
+export const { useJoinRoomMutation, useCreateRoomMutation } = roomsApi;

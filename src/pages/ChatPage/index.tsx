@@ -5,7 +5,7 @@ import { Chat } from "features";
 export const ChatPage = () => {
     return (
         <ChatLayout
-            // rooms={<RoomsManager />}
+            // rooms={<rooms />}
             chat={<Chat />}
         />
     );

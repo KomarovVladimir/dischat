@@ -3,12 +3,11 @@ import { Avatar, Grid, List } from "@mui/material";
 import { ListItem } from "components";
 
 import { CreationDialog } from "./CreationDialog";
-import { Room } from "./Room";
 
-import { useRoomsManager } from "../hooks";
+import { useRooms } from "../hooks";
 
-export const RoomsManager = () => {
-    const { rooms, creationOpen, handleOpen, handleClose } = useRoomsManager();
+export const Rooms = () => {
+    const { creationOpen, handleOpen, handleClose } = useRooms();
 
     return (
         <List>
