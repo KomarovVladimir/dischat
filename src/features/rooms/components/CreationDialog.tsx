@@ -3,9 +3,11 @@ import {
     TextField,
     Button,
     DialogActions,
-    DialogTitle,
     DialogContent,
-    Box
+    Box,
+    Divider,
+    Stack,
+    DialogTitle
 } from "@mui/material";
 
 import { Paper } from "components";
@@ -18,22 +20,44 @@ type CreationDialogProps = {
 };
 
 //TODO: Add i18n
-//TODO: Make a common component
 export const CreationDialog = ({ open, onClose }: CreationDialogProps) => {
-    const { name, handleChange, handleSubmit, handleClose } =
-        useCreationDialog(onClose);
+    const {
+        inputValues: { name, code },
+        handleChange,
+        handleSubmit,
+        handleClose
+    } = useCreationDialog(onClose);
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
             <Box component="form" onSubmit={handleSubmit}>
-                <DialogTitle>Add a new room</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        value={name}
-                        onChange={handleChange}
-                        autoComplete="off"
-                    />
+                    <Stack spacing={2}>
+                        {name && <DialogTitle>Create a new room</DialogTitle>}
+                        {!code && (
+                            <TextField
+                                placeholder="Write a new room name"
+                                autoFocus
+                                disabled={Boolean(code)}
+                                value={name}
+                                onChange={handleChange("name")}
+                                autoComplete="off"
+                            />
+                        )}
+                        {!name && !code && <Divider>OR</Divider>}
+                        {code && (
+                            <DialogTitle>Join an existing room</DialogTitle>
+                        )}
+                        {!name && (
+                            <TextField
+                                placeholder="Paste a room code"
+                                disabled={Boolean(name)}
+                                value={code}
+                                onChange={handleChange("code")}
+                                autoComplete="off"
+                            />
+                        )}
+                    </Stack>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

@@ -2,28 +2,37 @@ import { useState, ChangeEvent, FormEvent } from "react";
 
 import { useCreateRoomMutation } from "../api";
 
+const initialValues = {
+    name: "",
+    code: ""
+};
+
 export const useCreationDialog = (onClose: () => void) => {
     const [createRoom] = useCreateRoomMutation();
-    const [name, setName] = useState("");
+    const [inputValues, setInputValues] = useState(initialValues);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.currentTarget.value);
-    };
+    const handleChange =
+        (field: "name" | "code") => (event: ChangeEvent<HTMLInputElement>) => {
+            setInputValues({
+                ...inputValues,
+                [field]: event.currentTarget.value
+            });
+        };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createRoom({ name });
-        setName("");
+        createRoom({ name: inputValues.name });
+        setInputValues(initialValues);
         onClose();
     };
 
     const handleClose = () => {
-        setName("");
+        setInputValues(initialValues);
         onClose();
     };
 
     return {
-        name,
+        inputValues,
         handleChange,
         handleSubmit,
         handleClose
