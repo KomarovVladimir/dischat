@@ -1,7 +1,6 @@
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 
 import { api } from "app/services/api";
-import { RoomData } from "features";
 import { Id } from "types";
 
 import { CreateRoomRequest } from "../types";
@@ -9,10 +8,6 @@ import { CreateRoomRequest } from "../types";
 //TODO: Replace body with params
 export const roomsManagerApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        getRooms: builder.query<RoomData[], void>({
-            query: () => ({ url: "/rooms" }),
-            providesTags: () => [{ type: "Rooms" }]
-        }),
         createRoom: builder.mutation<QueryReturnValue, CreateRoomRequest>({
             query: (body) => ({
                 url: "/rooms",
@@ -46,7 +41,6 @@ export const roomsManagerApi = api.injectEndpoints({
 });
 
 export const {
-    useGetRoomsQuery,
     useJoinRoomMutation,
     useLeaveRoomMutation,
     useCreateRoomMutation,
