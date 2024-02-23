@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
-import { roomsSlice } from "features";
+import { chatSlice, roomsSlice } from "features";
 
 import { api } from "./services/api";
 
 export const store = configureStore({
     reducer: {
+        chat: chatSlice.reducer,
         rooms: roomsSlice.reducer,
         [api.reducerPath]: api.reducer
     },

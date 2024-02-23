@@ -4,6 +4,7 @@ import { api } from "app/services/api";
 
 import { PostMessageRequest, MessageData } from "../types";
 
+//TODO: Add synchronization between users. Make the chat distributed
 export const chatApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getMessages: builder.query<MessageData[], string>({
@@ -19,6 +20,19 @@ export const chatApi = api.injectEndpoints({
                 body
             }),
             invalidatesTags: [{ type: "Chat" }]
+            // async onQueryStarted(
+            //     arg,
+            //     {
+            //         dispatch,
+            //         getState,
+            //         queryFulfilled,
+            //         requestId,
+            //         extra,
+            //         getCacheEntry
+            //     }
+            // ) {
+            //     console.log(arg);
+            // }
         }),
         deleteMessage: builder.mutation<QueryReturnValue, string>({
             query: (messageId) => ({

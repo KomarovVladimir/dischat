@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { useSendMessageMutation } from "../api";
 
+//TODO: Add send checks
 export const useChatInput = () => {
     const { roomId } = useParams() as { roomId: string };
     const [sendMessage] = useSendMessageMutation();

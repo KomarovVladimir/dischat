@@ -1,5 +1,7 @@
 import { EntityId, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
+import { roomsApi } from "../api";
+
 export type RoomEntity = {
     id: EntityId;
     name: string;
@@ -14,6 +16,14 @@ export const roomsSlice = createSlice({
     reducers: {
         roomAdded: roomsAdapter.addOne,
         roomRemoved: roomsAdapter.removeOne
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(
+            roomsApi.endpoints.createRoom.matchFulfilled,
+            (state, { payload }) => {
+                roomsAdapter.addOne(state, payload);
+            }
+        );
     }
 });
 
