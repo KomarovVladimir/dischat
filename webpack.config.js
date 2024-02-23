@@ -48,7 +48,6 @@ module.exports = (env, argv) => {
             new CleanWebpackPlugin()
         ],
         devServer: {
-            open: true,
             static: {
                 directory: path.join(__dirname, "public")
             },
