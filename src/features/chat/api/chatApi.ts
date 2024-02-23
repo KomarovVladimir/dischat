@@ -8,7 +8,9 @@ export const chatApi = api.injectEndpoints({
     endpoints: (builder) => ({
         getMessages: builder.query<MessageData[], string>({
             query: (roomId) => ({ url: `rooms/${roomId}/messages` }),
-            providesTags: () => [{ type: "Chat" }]
+            providesTags: () => [{ type: "Chat" }],
+            transformResponse: (response: { messages: MessageData[] }) =>
+                response.messages || []
         }),
         sendMessage: builder.mutation<QueryReturnValue, PostMessageRequest>({
             query: ({ roomId, ...body }) => ({

@@ -15,7 +15,7 @@ export const useChat = () => {
     }, [messages]);
 
     return {
-        messages: [],
+        messages,
         endRef
     };
 };
