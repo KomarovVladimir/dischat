@@ -1,4 +1,3 @@
-export * from "./useCreationDialog";
-export * from "./useJoiningDialog";
-export * from "./useRoomCard";
+export * from "./useRoomDialog";
+export * from "./useRoom";
 export * from "./useRooms";

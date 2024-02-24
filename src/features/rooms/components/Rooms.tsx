@@ -2,7 +2,7 @@ import { Avatar, List } from "@mui/material";
 
 import { ListItem } from "components";
 
-import { CreationDialog } from "./CreationDialog";
+import { RoomDialog } from "./RoomDialog";
 import { Room } from "./Room";
 
 import { useRooms } from "../hooks";
@@ -12,7 +12,7 @@ export const Rooms = () => {
 
     return (
         <List>
-            <CreationDialog onClose={handleClose} open={creationOpen} />
+            <RoomDialog onClose={handleClose} open={creationOpen} />
             {rooms?.map((props, index) => <Room key={index} {...props} />)}
             <ListItem icon={<Avatar>+</Avatar>} onClick={handleOpen} />
         </List>

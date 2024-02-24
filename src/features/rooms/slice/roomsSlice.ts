@@ -24,6 +24,12 @@ export const roomsSlice = createSlice({
                 roomsAdapter.addOne(state, payload);
             }
         );
+        builder.addMatcher(
+            roomsApi.endpoints.joinRoom.matchFulfilled,
+            (state, { payload }) => {
+                roomsAdapter.addOne(state, payload);
+            }
+        );
     }
 });
 

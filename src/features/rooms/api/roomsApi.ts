@@ -1,4 +1,3 @@
-import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { EntityId } from "@reduxjs/toolkit";
 
 import { api } from "app/services/api";
@@ -18,7 +17,7 @@ export const roomsApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Rooms"]
         }),
-        joinRoom: builder.mutation<QueryReturnValue, EntityId>({
+        joinRoom: builder.mutation<RoomEntity, EntityId>({
             query: (roomId) => ({
                 url: `/rooms/${roomId}/join`,
                 method: "POST"

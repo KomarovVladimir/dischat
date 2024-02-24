@@ -4,7 +4,7 @@ import { ListItem } from "components";
 import { stringAvatar } from "lib";
 import { Id } from "types";
 
-import { useRoomCard } from "../hooks";
+import { useRoom } from "../hooks";
 
 export type RoomProps = {
     id: Id;
@@ -15,7 +15,7 @@ export type RoomProps = {
 //TODO: Add area attributes
 //TODO: Add an deleting alert dialog
 export const Room = ({ id, imgSrc, name }: RoomProps) => {
-    const { handleNavigate } = useRoomCard(id);
+    const { handleNavigate } = useRoom(id);
 
     return (
         <ListItem
