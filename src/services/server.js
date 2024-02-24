@@ -8,6 +8,12 @@ export const startFakeServer = () => {
             message: Model
         },
 
+        seeds(server) {
+            server.create("room", { name: "Test Room" });
+            server.create("room", { name: "Room Two" });
+            server.create("room", { name: "Another" });
+        },
+
         factories: {
             room: Factory.extend({
                 name(i) {
@@ -67,6 +73,12 @@ export const startFakeServer = () => {
                         username: message.username,
                         timestamp: message.timestamp
                     };
+                }
+            );
+            this.post(
+                "/rooms/:roomId/join",
+                (schema, { params: { roomId } }) => {
+                    return schema.rooms.find(roomId);
                 }
             );
         }
