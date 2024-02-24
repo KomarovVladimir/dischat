@@ -2,7 +2,7 @@ import { EntityId } from "@reduxjs/toolkit";
 
 import { api } from "app/services/api";
 
-import { CreateRoomRequest } from "../types";
+import { CreateRoomRequest, JoinResponse } from "../types";
 import { RoomEntity } from "../slice";
 
 //TODO: Replace body with params
@@ -22,6 +22,7 @@ export const roomsApi = api.injectEndpoints({
                 url: `/rooms/${roomId}/join`,
                 method: "POST"
             }),
+            transformResponse: ({ data }: JoinResponse) => data,
             invalidatesTags: ["Rooms"]
         })
     })

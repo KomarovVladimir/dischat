@@ -78,7 +78,7 @@ export const startFakeServer = () => {
             this.post(
                 "/rooms/:roomId/join",
                 (schema, { params: { roomId } }) => {
-                    return schema.rooms.find(roomId);
+                    return { data: schema.rooms.find(roomId) };
                 }
             );
         }

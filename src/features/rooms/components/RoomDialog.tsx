@@ -22,39 +22,38 @@ type CreationDialogProps = {
 //TODO: Add i18n
 //TODO: Add reject error handling
 export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
-    const {
-        inputValues: { name, code },
-        handleChange,
-        handleSubmit,
-        handleClose
-    } = useRoomDialog(onClose);
+    const { name, roomId, handleChange, handleSubmit, handleClose } =
+        useRoomDialog(onClose);
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
-            <Box component="form" onSubmit={handleSubmit("create")}>
+            <Box
+                component="form"
+                onSubmit={handleSubmit(name ? "create" : "join")}
+            >
                 <DialogContent>
                     <Stack spacing={2}>
                         {name && <DialogTitle>Create a new room</DialogTitle>}
-                        {!code && (
+                        {!roomId && (
                             <TextField
                                 placeholder="Write a new room name"
                                 autoFocus
-                                disabled={Boolean(code)}
+                                disabled={Boolean(roomId)}
                                 value={name}
                                 onChange={handleChange("name")}
                                 autoComplete="off"
                             />
                         )}
-                        {!name && !code && <Divider>OR</Divider>}
-                        {code && (
+                        {!name && !roomId && <Divider>OR</Divider>}
+                        {roomId && (
                             <DialogTitle>Join an existing room</DialogTitle>
                         )}
                         {!name && (
                             <TextField
-                                placeholder="Paste a room code"
+                                placeholder="Paste a room roomId"
                                 disabled={Boolean(name)}
-                                value={code}
-                                onChange={handleChange("code")}
+                                value={roomId}
+                                onChange={handleChange("roomId")}
                                 autoComplete="off"
                             />
                         )}
@@ -62,7 +61,7 @@ export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button disabled={name === ""} type="submit">
+                    <Button disabled={!name && !roomId} type="submit">
                         Submit
                     </Button>
                 </DialogActions>
