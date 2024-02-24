@@ -18,7 +18,7 @@ export const startFakeServer = () => {
                 text() {
                     return faker.lorem.sentence();
                 },
-                date() {
+                timestamp() {
                     return faker.date.recent().toISOString();
                 }
             })
@@ -29,8 +29,8 @@ export const startFakeServer = () => {
             this.namespace = "/api/v1";
 
             this.get("/rooms");
-            this.post("/rooms", (schema, request) => {
-                const body = JSON.parse(request.requestBody);
+            this.post("/rooms", (schema, { requestBody }) => {
+                const body = JSON.parse(requestBody);
                 const room = schema.rooms.create(body);
 
                 for (let i = 0; i < 10; i++) {
@@ -57,13 +57,16 @@ export const startFakeServer = () => {
             this.post(
                 "/rooms/:roomId/messages",
                 (schema, { requestBody, params: { roomId } }) => {
-                    const attrs = JSON.parse(requestBody);
+                    const body = JSON.parse(requestBody);
 
-                    return schema.messages.create({
-                        ...attrs,
-                        roomId,
-                        date: new Date().toUTCString()
-                    });
+                    const message = schema.messages.create({ roomId, ...body });
+
+                    return {
+                        id: message.id,
+                        text: message.text,
+                        username: message.username,
+                        timestamp: message.timestamp
+                    };
                 }
             );
         }

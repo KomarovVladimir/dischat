@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import { Chat } from "features";
 import { ChatPage } from "pages";
@@ -11,6 +11,7 @@ export const AppRoutes = () => (
     <Routes>
         <Route path={baseRoute} element={<ChatPage />}>
             <Route path={room} element={<Chat />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
     </Routes>
 );

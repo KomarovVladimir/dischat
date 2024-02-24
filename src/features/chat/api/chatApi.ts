@@ -3,6 +3,7 @@ import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { api } from "app/services/api";
 
 import { PostMessageRequest, MessageData } from "../types";
+import { MessageEntity } from "../slice";
 
 //TODO: Add synchronization between users. Make the chat distributed
 export const chatApi = api.injectEndpoints({
@@ -13,26 +14,13 @@ export const chatApi = api.injectEndpoints({
             transformResponse: (response: { messages: MessageData[] }) =>
                 response.messages || []
         }),
-        sendMessage: builder.mutation<QueryReturnValue, PostMessageRequest>({
+        sendMessage: builder.mutation<MessageEntity, PostMessageRequest>({
             query: ({ roomId, ...body }) => ({
                 url: `rooms/${roomId}/messages`,
                 method: "POST",
                 body
             }),
             invalidatesTags: [{ type: "Chat" }]
-            // async onQueryStarted(
-            //     arg,
-            //     {
-            //         dispatch,
-            //         getState,
-            //         queryFulfilled,
-            //         requestId,
-            //         extra,
-            //         getCacheEntry
-            //     }
-            // ) {
-            //     console.log(arg);
-            // }
         }),
         deleteMessage: builder.mutation<QueryReturnValue, string>({
             query: (messageId) => ({

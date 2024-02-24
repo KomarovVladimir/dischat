@@ -1,3 +1,5 @@
+import { EntityId } from "@reduxjs/toolkit";
+
 export interface MessageData {
     id: string;
     username: string;
@@ -7,7 +9,7 @@ export interface MessageData {
 }
 
 export interface PostMessageRequest {
-    roomId: string;
+    roomId: EntityId;
     text: string;
-    postingDate: Date;
+    timestamp: string;
 }

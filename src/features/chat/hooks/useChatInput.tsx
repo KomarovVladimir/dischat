@@ -1,4 +1,5 @@
-import { KeyboardEvent, ChangeEvent, useState } from "react";
+import { QueryStatus } from "@reduxjs/toolkit/query";
+import { KeyboardEvent, ChangeEvent, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useSendMessageMutation } from "../api";
@@ -6,12 +7,21 @@ import { useSendMessageMutation } from "../api";
 //TODO: Add send checks
 export const useChatInput = () => {
     const { roomId } = useParams() as { roomId: string };
-    const [sendMessage] = useSendMessageMutation();
+    const [sendMessage, { status }] = useSendMessageMutation();
     const [text, setText] = useState("");
 
+    useEffect(() => {
+        switch (status) {
+            case QueryStatus.fulfilled:
+                setText("");
+                break;
+            default:
+                break;
+        }
+    }, [status]);
+
     const handleSendMessage = () => {
-        sendMessage({ roomId, text, postingDate: new Date() });
-        setText("");
+        sendMessage({ roomId, text, timestamp: new Date().toISOString() });
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
