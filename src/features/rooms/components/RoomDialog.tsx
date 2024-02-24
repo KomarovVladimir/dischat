@@ -12,7 +12,7 @@ import {
 
 import { Paper } from "components";
 
-import { useCreationDialog } from "../hooks";
+import { useRoomDialog } from "../hooks";
 
 type CreationDialogProps = {
     open: boolean;
@@ -21,13 +21,13 @@ type CreationDialogProps = {
 
 //TODO: Add i18n
 //TODO: Add reject error handling
-export const CreationDialog = ({ open, onClose }: CreationDialogProps) => {
+export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
     const {
         inputValues: { name, code },
         handleChange,
         handleSubmit,
         handleClose
-    } = useCreationDialog(onClose);
+    } = useRoomDialog(onClose);
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>

@@ -8,7 +8,7 @@ const initialValues = {
     code: ""
 };
 
-export const useCreationDialog = (onClose: () => void) => {
+export const useRoomDialog = (onClose: () => void) => {
     const [createRoom, { status }] = useCreateRoomMutation();
     const [inputValues, setInputValues] = useState(initialValues);
 
