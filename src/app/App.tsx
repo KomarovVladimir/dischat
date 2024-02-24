@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { startFakeServer } from "services/server.js";
 // import { io } from "socket.io-client";
 
-// import "services/server";
 import { AppRoutes } from "routing";
 
 import { store } from "./store";
