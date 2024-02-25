@@ -19,13 +19,7 @@ export const roomsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addMatcher(
-            roomsApi.endpoints.createRoom.matchFulfilled,
-            (state, { payload }) => {
-                roomsAdapter.addOne(state, payload);
-            }
-        );
-        builder.addMatcher(
-            roomsApi.endpoints.joinRoom.matchFulfilled,
+            roomsApi.endpoints.addRoom.matchFulfilled,
             (state, { payload }) => {
                 roomsAdapter.addOne(state, payload);
             }

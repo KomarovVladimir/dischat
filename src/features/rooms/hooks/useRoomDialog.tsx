@@ -2,8 +2,9 @@ import { QueryStatus } from "@reduxjs/toolkit/query";
 import { EntityId } from "@reduxjs/toolkit";
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 
-import { useCreateRoomMutation, useJoinRoomMutation } from "../api";
-import { FieldNames, RequestType } from "../types";
+import { useAddRoomMutation } from "../api";
+import { FieldNames } from "../types";
+import { useNavigate } from "react-router";
 
 const initialValues = {
     name: "",
@@ -14,51 +15,36 @@ const initialValues = {
 };
 
 export const useRoomDialog = (onClose: () => void) => {
-    const [createRoom, { status: createStatus }] = useCreateRoomMutation();
-    const [joinRoom, { status: joinStatus }] = useJoinRoomMutation();
-    const [inputValues, setInputValues] = useState(initialValues);
+    const navigate = useNavigate();
+    const [addRoom, { data: responseData, status: addStatus }] =
+        useAddRoomMutation();
+    const [{ name, roomId }, setInputValues] = useState(initialValues);
 
     const handleChange =
         (field: FieldNames) => (event: ChangeEvent<HTMLInputElement>) => {
             setInputValues({
-                ...inputValues,
+                name,
+                roomId,
                 [field]: event.currentTarget.value
             });
         };
 
     useEffect(() => {
-        switch (createStatus) {
+        switch (addStatus) {
             case QueryStatus.fulfilled:
+                navigate(`/rooms/${responseData?.id}`);
                 setInputValues(initialValues);
                 onClose();
                 break;
             default:
                 break;
         }
-        switch (joinStatus) {
-            case QueryStatus.fulfilled:
-                setInputValues(initialValues);
-                onClose();
-                break;
-            default:
-                break;
-        }
-    }, [createStatus, joinStatus]);
+    }, [addStatus]);
 
-    const handleSubmit =
-        (type: RequestType) => (e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            switch (type) {
-                case "create":
-                    createRoom({ name: inputValues.name });
-                    break;
-                case "join":
-                    joinRoom(inputValues.roomId);
-                    break;
-                default:
-                    break;
-            }
-        };
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        addRoom({ name, roomId });
+    };
 
     const handleClose = () => {
         setInputValues(initialValues);
@@ -66,8 +52,8 @@ export const useRoomDialog = (onClose: () => void) => {
     };
 
     return {
-        name: inputValues.name,
-        roomId: inputValues.roomId,
+        name,
+        roomId,
         handleChange,
         handleSubmit,
         handleClose

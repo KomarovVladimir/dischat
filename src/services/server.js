@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { createServer, Model, Factory } from "miragejs";
+import { Response, createServer, Model, Factory } from "miragejs";
 
 export const startFakeServer = () => {
     const server = createServer({
@@ -36,17 +36,19 @@ export const startFakeServer = () => {
 
             this.get("/rooms");
             this.post("/rooms", (schema, { requestBody }) => {
-                const body = JSON.parse(requestBody);
-                const room = schema.rooms.create(body);
+                const { roomId, name } = JSON.parse(requestBody);
 
-                for (let i = 0; i < 10; i++) {
-                    schema.messages.create();
+                if (roomId) {
+                    return { data: schema.rooms.find(roomId) };
                 }
 
-                return {
-                    id: room.id,
-                    name: room.name
-                };
+                const room = schema.rooms.create({ name });
+
+                for (let i = 0; i < 10; i++) {
+                    schema.messages.create(room.id);
+                }
+
+                return { data: room };
             });
 
             this.get("/rooms/:roomId", (schema, { params: { roomId } }) => {
@@ -60,27 +62,28 @@ export const startFakeServer = () => {
                     return schema.messages.where({ roomId });
                 }
             );
-            this.post(
-                "/rooms/:roomId/messages",
-                (schema, { requestBody, params: { roomId } }) => {
-                    const body = JSON.parse(requestBody);
+            // this.post(
+            //     "/rooms/:roomId/messages",
+            //     (schema, { requestBody, params: { roomId } }) => {
+            //         const body = JSON.parse(requestBody);
 
-                    const message = schema.messages.create({ roomId, ...body });
+            //         const message = schema.messages.create({ roomId, ...body });
 
-                    return {
-                        id: message.id,
-                        text: message.text,
-                        username: message.username,
-                        timestamp: message.timestamp
-                    };
-                }
-            );
-            this.post(
-                "/rooms/:roomId/join",
-                (schema, { params: { roomId } }) => {
-                    return { data: schema.rooms.find(roomId) };
-                }
-            );
+            //         return {
+            //             id: message.id,
+            //             text: message.text,
+            //             username: message.username,
+            //             timestamp: message.timestamp
+            //         };
+            //     }
+            // );
+            this.post("/rooms/:roomId/messages", () => {
+                return new Response(
+                    500,
+                    {},
+                    { message: "name cannot be blank" }
+                );
+            });
         }
     });
 

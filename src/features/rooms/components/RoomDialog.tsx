@@ -27,10 +27,7 @@ export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
-            <Box
-                component="form"
-                onSubmit={handleSubmit(name ? "create" : "join")}
-            >
+            <Box component="form" onSubmit={handleSubmit}>
                 <DialogContent>
                     <Stack spacing={2}>
                         {name && <DialogTitle>Create a new room</DialogTitle>}
