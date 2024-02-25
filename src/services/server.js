@@ -9,9 +9,18 @@ export const startFakeServer = () => {
         },
 
         seeds(server) {
-            server.create("room", { name: "Test Room" });
-            server.create("room", { name: "Room Two" });
-            server.create("room", { name: "Another" });
+            const roomNames = ["Test Room", "Room Two", "Another"];
+            roomNames.forEach((name) => {
+                server.create("room", { name });
+            });
+
+            for (let i = 0; i < 5; i++) {
+                server.create("message", {
+                    roomId: 1,
+                    text: faker.lorem.sentence(),
+                    timestamp: faker.date.recent().toISOString()
+                });
+            }
         },
 
         factories: {
@@ -43,10 +52,6 @@ export const startFakeServer = () => {
                 }
 
                 const room = schema.rooms.create({ name });
-
-                for (let i = 0; i < 10; i++) {
-                    schema.messages.create(room.id);
-                }
 
                 return { data: room };
             });
