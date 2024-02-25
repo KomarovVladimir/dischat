@@ -1,3 +1,4 @@
+// import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 
 import { api } from "app/services/api";
@@ -21,6 +22,7 @@ export const chatApi = api.injectEndpoints({
                 body
             }),
             invalidatesTags: [{ type: "Chat" }]
+            // transformResponse: ({ data }: FetchBaseQueryError) => data
         }),
         deleteMessage: builder.mutation<QueryReturnValue, string>({
             query: (messageId) => ({

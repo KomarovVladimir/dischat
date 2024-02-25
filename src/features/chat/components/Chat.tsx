@@ -10,7 +10,7 @@ import {
 } from "./styled";
 import { ChatInput } from "./ChatInput";
 
-import { useChat } from "../hooks/useChat";
+import { useChat } from "../hooks";
 
 //TODO: Add avatars
 export const Chat = () => {
@@ -22,15 +22,6 @@ export const Chat = () => {
                 {messages &&
                     messages?.map(({ id, username, created: date, text }) => (
                         <Message key={id} dense disablePadding>
-                            {/* <Avatar
-                                alt={username}
-                                src={avatar}
-                                sx={{
-                                    marginRight: ".5rem",
-                                    width: 38,
-                                    height: 38,
-                                }}
-                            /> */}
                             <MessageContent>
                                 <MessageHeader>
                                     <Typography

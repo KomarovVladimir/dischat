@@ -25,6 +25,14 @@ export const chatSlice = createSlice({
                 chatAdapter.addOne(state, payload);
             }
         );
+        // builder.addMatcher(
+        //     chatApi.endpoints.sendMessage.matchRejected,
+        //     (state, { payload }) => {
+        //         console.log(payload);
+
+        //         chatAdapter.addOne(state, payload);
+        //     }
+        // );
     }
 });
 
