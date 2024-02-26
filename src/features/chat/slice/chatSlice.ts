@@ -1,6 +1,11 @@
-import { EntityId, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import {
+    EntityId,
+    PayloadAction,
+    createEntityAdapter,
+    createSlice
+} from "@reduxjs/toolkit";
 
-import { chatApi } from "../api";
+// import { chatApi } from "../api";
 
 export type MessageEntity = {
     id: EntityId;
@@ -11,22 +16,23 @@ export type MessageEntity = {
     isSent?: boolean;
 };
 
+export type AddMessageAction = PayloadAction<
+    MessageEntity & { roomId: EntityId }
+>;
+
 const chatAdapter = createEntityAdapter<MessageEntity>();
 
 export const chatSlice = createSlice({
     name: "chat",
     initialState: chatAdapter.getInitialState(),
     reducers: {
-        messageAdded: chatAdapter.addOne,
+        messageAdded: (
+            state,
+            { payload: { roomId, ...entity } }: AddMessageAction
+        ) => {
+            chatAdapter.addOne(state, entity);
+        },
         messageRemoved: chatAdapter.removeOne
-    },
-    extraReducers: (builder) => {
-        builder.addMatcher(
-            chatApi.endpoints.sendMessage.matchFulfilled,
-            (state, { payload }) => {
-                chatAdapter.addOne(state, payload);
-            }
-        );
     }
 });
 

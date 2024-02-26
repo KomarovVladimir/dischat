@@ -1,12 +1,12 @@
 // import { QueryStatus } from "@reduxjs/toolkit/query";
-import { EntityId, nanoid } from "@reduxjs/toolkit";
+import { EntityId } from "@reduxjs/toolkit";
 import { useState, ChangeEvent, FormEvent } from "react";
 
 // import { useAddRoomMutation } from "../api";
 import { FieldNames } from "../types";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { RoomEntity, roomAdded } from "../slice";
+import { roomAdded } from "../slice";
 
 const initialValues = {
     name: "",
@@ -30,24 +30,12 @@ export const useRoomDialog = (onClose: () => void) => {
             });
         };
 
-    // useEffect(() => {
-    //     switch (addStatus) {
-    //         case QueryStatus.fulfilled:
-    //             navigate(`/rooms/${responseData?.id}`);
-    //             setInputValues(initialValues);
-    //             onClose();
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }, [addStatus]);
-
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const {
             payload: { id }
-        } = dispatch(roomAdded({ id: nanoid(), name } as RoomEntity));
+        } = dispatch(roomAdded(name));
 
         setInputValues(initialValues);
         onClose();
