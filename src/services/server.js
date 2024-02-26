@@ -14,12 +14,14 @@ export const startFakeServer = () => {
                 server.create("room", { name });
             });
 
-            for (let i = 0; i < 5; i++) {
-                server.create("message", {
-                    roomId: 1,
-                    text: faker.lorem.sentence(),
-                    timestamp: faker.date.recent().toISOString()
-                });
+            for (let j = 0; j < roomNames.length; j++) {
+                for (let i = 0; i < 5; i++) {
+                    server.create("message", {
+                        roomId: j,
+                        text: faker.lorem.sentence(),
+                        timestamp: faker.date.recent().toISOString()
+                    });
+                }
             }
         },
 

@@ -1,7 +1,7 @@
+import { useSelector } from "react-redux";
 import { useState } from "react";
 
 import { roomsSelectors } from "../slice";
-import { useSelector } from "react-redux";
 
 export const useRooms = () => {
     const rooms = useSelector(roomsSelectors.selectAll);
