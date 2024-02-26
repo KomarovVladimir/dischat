@@ -5,6 +5,7 @@ import { EntityId, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 export type RoomEntity = {
     id: EntityId;
     name: string;
+    messageIds: EntityId[];
     imgSrc?: string;
 };
 
