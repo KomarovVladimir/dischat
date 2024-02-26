@@ -5,9 +5,11 @@ import { useParams } from "react-router-dom";
 import { useSendMessageMutation } from "../api";
 
 //TODO: Add send checks
+//TODO: Move the error message to a constant
 export const useChatInput = () => {
     const { roomId } = useParams() as { roomId: string };
-    const [sendMessage, { status }] = useSendMessageMutation();
+    const [sendMessage, { isError, isLoading, status }] =
+        useSendMessageMutation();
     const [text, setText] = useState("");
 
     useEffect(() => {
@@ -22,6 +24,7 @@ export const useChatInput = () => {
 
     const handleSendMessage = () => {
         sendMessage({ roomId, text, timestamp: new Date().toISOString() });
+        setText("");
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +38,8 @@ export const useChatInput = () => {
     };
 
     return {
+        isError,
+        isLoading,
         text,
         handleSend,
         handleSendMessage,

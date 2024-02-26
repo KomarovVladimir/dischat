@@ -21,8 +21,10 @@ export const chatApi = api.injectEndpoints({
                 method: "POST",
                 body
             }),
-            invalidatesTags: [{ type: "Chat" }]
-            // transformResponse: ({ data }: FetchBaseQueryError) => data
+            invalidatesTags: [{ type: "Chat" }],
+            transformResponse: ({ data }) => {
+                return data;
+            }
         }),
         deleteMessage: builder.mutation<QueryReturnValue, string>({
             query: (messageId) => ({

@@ -13,6 +13,7 @@ import { ChatInput } from "./ChatInput";
 import { useChat } from "../hooks";
 
 //TODO: Add avatars
+//TODO: Create a message component
 export const Chat = () => {
     const { messages, endRef } = useChat();
 

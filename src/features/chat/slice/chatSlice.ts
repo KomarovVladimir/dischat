@@ -4,9 +4,11 @@ import { chatApi } from "../api";
 
 export type MessageEntity = {
     id: EntityId;
-    username: string;
+    username?: string;
     text: string;
-    timestamp?: string;
+    timestamp: string;
+    isError?: boolean;
+    isSent?: boolean;
 };
 
 const chatAdapter = createEntityAdapter<MessageEntity>();
@@ -25,14 +27,6 @@ export const chatSlice = createSlice({
                 chatAdapter.addOne(state, payload);
             }
         );
-        // builder.addMatcher(
-        //     chatApi.endpoints.sendMessage.matchRejected,
-        //     (state, { payload }) => {
-        //         console.log(payload);
-
-        //         chatAdapter.addOne(state, payload);
-        //     }
-        // );
     }
 });
 
