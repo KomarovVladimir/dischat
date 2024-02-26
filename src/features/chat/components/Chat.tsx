@@ -21,7 +21,7 @@ export const Chat = () => {
         <ChatPaper>
             <ChatBox dense disablePadding>
                 {messages &&
-                    messages?.map(({ id, username, created: date, text }) => (
+                    messages?.map(({ id, username, timestamp: date, text }) => (
                         <Message key={id} dense disablePadding>
                             <MessageContent>
                                 <MessageHeader>

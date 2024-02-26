@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useSelector } from "react-redux";
 
-import { chatSlice, roomsSlice } from "features";
+import { messagesSlice, roomsSlice } from "features";
 
 import { api } from "./services/api";
 
 export const store = configureStore({
     reducer: {
-        chat: chatSlice.reducer,
+        messages: messagesSlice.reducer,
         rooms: roomsSlice.reducer,
         [api.reducerPath]: api.reducer
     },
@@ -18,5 +17,3 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
-
-export const roomsSelector: TypedUseSelectorHook<RootState> = useSelector;

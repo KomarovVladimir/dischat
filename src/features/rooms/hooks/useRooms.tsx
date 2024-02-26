@@ -1,10 +1,9 @@
-import { useSelector } from "react-redux";
 import { useState } from "react";
 
-import { roomsSelectors } from "../slice";
+import { getAllRooms } from "../slice";
 
 export const useRooms = () => {
-    const rooms = useSelector(roomsSelectors.selectAll);
+    const rooms = getAllRooms();
 
     const [creationOpen, setCreationOpen] = useState(false);
 

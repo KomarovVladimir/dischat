@@ -6,7 +6,9 @@ import {
     nanoid
 } from "@reduxjs/toolkit";
 
+import { RootState } from "app/store";
 import { messageAdded } from "features";
+import { useSelector } from "react-redux";
 
 // import { roomsApi } from "../api";
 
@@ -52,4 +54,11 @@ export const roomsSlice = createSlice({
 
 export const { roomAdded, roomRemoved } = roomsSlice.actions;
 
-export const roomsSelectors = roomsAdapter.getSelectors(({ rooms }) => rooms);
+export const roomsSelectors = roomsAdapter.getSelectors<RootState>(
+    (state) => state.rooms
+);
+
+export const getMessageIdsByRoomId = (id: EntityId) =>
+    useSelector((state: RootState) => roomsSelectors.selectById(state, id));
+
+export const getAllRooms = () => useSelector(roomsSelectors.selectAll);
