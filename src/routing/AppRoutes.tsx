@@ -11,7 +11,7 @@ export const AppRoutes = () => (
     <Routes>
         <Route path={baseRoute} element={<ChatPage />}>
             <Route path={room} element={<Chat />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+        <Route path="*" element={<Navigate to={baseRoute} replace />} />
     </Routes>
 );

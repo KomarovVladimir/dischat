@@ -62,3 +62,11 @@ export const getMessageIdsByRoomId = (id: EntityId) =>
     useSelector((state: RootState) => roomsSelectors.selectById(state, id));
 
 export const getAllRooms = () => useSelector(roomsSelectors.selectAll);
+
+export const getRoomById = (id: EntityId) =>
+    useSelector((state: RootState) => roomsSelectors.selectById(state, id));
+
+export const roomExists = (id: EntityId) =>
+    useSelector((state: RootState) =>
+        roomsSelectors.selectIds(state).includes(id)
+    );
