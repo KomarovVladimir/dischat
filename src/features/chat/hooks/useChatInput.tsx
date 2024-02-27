@@ -1,4 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
 import { KeyboardEvent, ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -13,16 +12,16 @@ export const useChatInput = () => {
     const [text, setText] = useState("");
 
     const handleSendMessage = () => {
-        dispatch(
-            messageAdded({
-                roomId,
-                id: nanoid(),
-                text,
-                timestamp: new Date().toISOString()
-            })
-        );
+        if (text) {
+            dispatch(
+                messageAdded({
+                    roomId,
+                    text
+                })
+            );
 
-        setText("");
+            setText("");
+        }
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

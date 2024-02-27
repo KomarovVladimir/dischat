@@ -2,7 +2,8 @@ import {
     EntityId,
     PayloadAction,
     createEntityAdapter,
-    createSlice
+    createSlice,
+    nanoid
 } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
@@ -10,6 +11,7 @@ import { RootState } from "app/store";
 
 export type MessageEntity = {
     id: EntityId;
+    roomId: EntityId;
     username?: string;
     text: string;
     timestamp: string;
@@ -27,11 +29,16 @@ export const messagesSlice = createSlice({
     name: "messages",
     initialState: messageAdapter.getInitialState(),
     reducers: {
-        messageAdded: (
-            state,
-            { payload: { roomId, ...entity } }: AddMessageAction
-        ) => {
-            messageAdapter.addOne(state, entity);
+        messageAdded: {
+            reducer: messageAdapter.addOne,
+            prepare: ({ roomId, text }) => ({
+                payload: {
+                    id: nanoid(),
+                    roomId,
+                    text,
+                    timestamp: new Date().toISOString()
+                }
+            })
         },
         messageRemoved: messageAdapter.removeOne
     }

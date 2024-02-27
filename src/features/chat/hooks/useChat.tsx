@@ -5,7 +5,6 @@ import { getMessageIdsByRoomId, getMessagesByIds } from "features";
 
 export const useChat = () => {
     const { roomId } = useParams() as { roomId: string };
-    // const { data: messages } = useGetMessagesQuery(roomId);
     const { messageIds } = getMessageIdsByRoomId(roomId);
 
     const endRef = createRef<HTMLDivElement>();
