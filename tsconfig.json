@@ -12,18 +12,18 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "module": "commonjs",
+        "module": "ESNext",
         "moduleResolution": "Node",
         "resolveJsonModule": true,
         "isolatedModules": false,
         "paths": {
-            "constants": ["./common/constants"],
-            "types": ["./common/types"],
-            "hooks": ["./common/hooks"],
-            "lib": ["./common/lib"]
+            "constants": ["common/constants"],
+            "types": ["common/types"],
+            "hooks": ["common/hooks"],
+            "lib": ["common/lib"]
         },
         "jsx": "react-jsx",
-        "types": ["webpack-env", "react"]
+        "types": ["webpack-env", "react", "jest"]
     },
     "include": ["src/**/*"],
     "exclude": ["dist", "node_modules"]

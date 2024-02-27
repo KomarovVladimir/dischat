@@ -1,6 +1,6 @@
 import { useParams, Outlet, Navigate } from "react-router";
 
-import { ChatLayout } from "components/layouts";
+import { ChatLayout } from "components";
 import { Rooms, roomExists } from "features";
 import { routes } from "routing";
 
