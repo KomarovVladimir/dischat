@@ -9,5 +9,4 @@ test("Renders ChatInput component", () => {
     render(<ListItem text="123" />);
 
     expect(screen.getByText("123")).toBeInTheDocument();
-    expect(screen.getByText("2345")).toBeInTheDocument();
 });
