@@ -1,13 +1,14 @@
 import { KeyboardEvent, ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+
+import { useAppDispatch } from "app/store";
 
 import { messageAdded } from "../slice";
 
 //TODO: Add send checks
 //TODO: Move the error message to a constant
 export const useChatInput = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { roomId } = useParams() as { roomId: string };
     const [text, setText] = useState("");
 

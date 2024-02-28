@@ -1,11 +1,12 @@
 // import { QueryStatus } from "@reduxjs/toolkit/query";
 import { EntityId } from "@reduxjs/toolkit";
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useNavigate } from "react-router";
+
+import { useAppDispatch } from "app/store";
 
 // import { useAddRoomMutation } from "../api";
 import { FieldNames } from "../types";
-import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
 import { roomAdded } from "../slice";
 
 const initialValues = {
@@ -18,7 +19,7 @@ const initialValues = {
 
 export const useRoomDialog = (onClose: () => void) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [{ name, roomId }, setInputValues] = useState(initialValues);
 
     const handleChange =
