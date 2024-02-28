@@ -1,4 +1,3 @@
-import { describe, expect, test } from "@jest/globals";
 const sum = (a: number, b: number) => {
     return a + b;
 };

@@ -23,7 +23,7 @@
             "lib": ["common/lib"]
         },
         "jsx": "react-jsx",
-        "types": ["webpack-env", "react", "jest"]
+        "types": ["webpack-env", "react", "jest", "@testing-library/jest-dom"]
     },
     "include": ["src/**/*"],
     "exclude": ["dist", "node_modules"]
