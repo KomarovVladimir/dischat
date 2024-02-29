@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "routing";
 
 import { store } from "./store";
+import { ErrorBoundary } from "components/ErrorBoundary";
 
 // if (process.env.NODE_ENV === "development") {
 //     startFakeServer();
@@ -28,9 +29,11 @@ export const App = () => {
             <Provider store={store}>
                 <ThemeProvider {...{ theme }}>
                     <CssBaseline />
-                    <BrowserRouter>
-                        <AppRoutes />
-                    </BrowserRouter>
+                    <ErrorBoundary>
+                        <BrowserRouter>
+                            <AppRoutes />
+                        </BrowserRouter>
+                    </ErrorBoundary>
                 </ThemeProvider>
             </Provider>
         </StrictMode>
