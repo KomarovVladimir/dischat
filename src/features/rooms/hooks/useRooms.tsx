@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { getAllRooms } from "../slice";
+import { getAllRooms } from "../slice/roomsSlice";
 
 export const useRooms = () => {
     const rooms = getAllRooms();

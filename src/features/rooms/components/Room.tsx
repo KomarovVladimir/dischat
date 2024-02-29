@@ -4,7 +4,7 @@ import { ListItem } from "components";
 import { stringAvatar } from "lib";
 import { Id } from "types";
 
-import { useRoom } from "../hooks";
+import { useRoom } from "../hooks/useRoom";
 
 export type RoomProps = {
     id: Id;

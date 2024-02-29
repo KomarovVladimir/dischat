@@ -10,7 +10,7 @@ import {
 } from "./styled";
 import { ChatInput } from "./ChatInput";
 
-import { useChat } from "../hooks";
+import { useChat } from "../hooks/useChat";
 
 //TODO: Add avatars
 //TODO: Create a message component

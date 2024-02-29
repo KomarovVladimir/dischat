@@ -4,12 +4,11 @@ import {
     createSlice,
     current,
     nanoid
+    // current
 } from "@reduxjs/toolkit";
 
 import { RootState, useAppSelector } from "app/store";
-import { messageAdded } from "features";
-
-// import { roomsApi } from "../api";
+import { messageAdded } from "features/chat/slice/messagesSlice";
 
 export type RoomEntity = {
     id: EntityId;
@@ -39,14 +38,18 @@ export const roomsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(messageAdded, (state, { payload: { roomId, id } }) => {
-            const { messageIds } = current(state.entities[roomId]);
+            const room = current(state.ids).includes(roomId);
 
-            roomsAdapter.updateOne(state, {
-                id: roomId,
-                changes: {
-                    messageIds: [...messageIds, id]
-                }
-            });
+            if (room) {
+                const { messageIds } = current(state.entities[roomId]);
+
+                roomsAdapter.updateOne(state, {
+                    id: roomId,
+                    changes: {
+                        messageIds: [...messageIds, id]
+                    }
+                });
+            }
         });
     }
 });
@@ -58,7 +61,7 @@ export const roomsSelectors = roomsAdapter.getSelectors<RootState>(
 );
 
 export const getMessageIdsByRoomId = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectById(state, id));
+    useAppSelector((state) => roomsSelectors.selectById(state, id)?.messageIds);
 
 export const getAllRooms = () => useAppSelector(roomsSelectors.selectAll);
 

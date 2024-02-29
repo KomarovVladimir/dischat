@@ -1,13 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-
-import { messagesSlice, roomsSlice } from "features";
-
-import { api } from "./services/api";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
+import { messagesSlice } from "features/chat/slice/messagesSlice";
+import { roomsSlice } from "features/rooms/slice/roomsSlice";
+
+import { api } from "./services/api";
+
 const rootReducer = combineReducers({
-    messages: messagesSlice.reducer,
-    rooms: roomsSlice.reducer,
+    [messagesSlice.reducerPath]: messagesSlice.reducer,
+    [roomsSlice.reducerPath]: roomsSlice.reducer,
     [api.reducerPath]: api.reducer
 });
 

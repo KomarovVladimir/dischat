@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router";
 
-import { Chat } from "features";
 import { ChatPage } from "pages";
+import { Chat } from "features/chat/components/Chat";
 
 import { routes } from "./routes";
 

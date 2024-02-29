@@ -5,7 +5,6 @@ import {
     createSlice,
     nanoid
 } from "@reduxjs/toolkit";
-
 import { RootState, useAppSelector } from "app/store";
 
 export type MessageEntity = {
@@ -49,7 +48,7 @@ export const messagesSelectors = messageAdapter.getSelectors<RootState>(
     (state) => state.messages
 );
 
-export const getMessagesByIds = (messageIds: EntityId[]) =>
+export const getMessagesByIds = (messageIds: EntityId[] = []) =>
     useAppSelector((state) =>
         messagesSelectors
             .selectAll(state)

@@ -7,7 +7,7 @@ import { useAppDispatch } from "app/store";
 
 // import { useAddRoomMutation } from "../api";
 import { FieldNames } from "../types";
-import { roomAdded } from "../slice";
+import { roomAdded } from "../slice/roomsSlice";
 
 const initialValues = {
     name: "",

@@ -1,7 +1,7 @@
 import { api } from "app/services/api";
 
 import { AddRoomRequest } from "../types";
-import { RoomEntity } from "../slice";
+import { RoomEntity } from "../slice/roomsSlice";
 
 //TODO: Replace body with params
 //TODO: Update the return value

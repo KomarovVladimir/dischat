@@ -12,7 +12,7 @@ import {
 
 import { Paper } from "components";
 
-import { useRoomDialog } from "../hooks";
+import { useRoomDialog } from "../hooks/useRoomDialog";
 
 type CreationDialogProps = {
     open: boolean;

@@ -5,7 +5,7 @@ import { ListItem } from "components";
 import { RoomDialog } from "./RoomDialog";
 import { Room } from "./Room";
 
-import { useRooms } from "../hooks";
+import { useRooms } from "../hooks/useRooms";
 
 export const Rooms = () => {
     const { rooms, creationOpen, handleOpen, handleClose } = useRooms();

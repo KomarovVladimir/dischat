@@ -1,8 +1,9 @@
 import { useParams, Outlet, Navigate } from "react-router";
+import { ChatLayout } from "components/layouts/ChatLayout";
+import { Rooms } from "features/rooms/components/Rooms";
+import { roomExists } from "features/rooms/slice/roomsSlice";
 
-import { ChatLayout } from "components";
-import { Rooms, roomExists } from "features";
-import { routes } from "routing";
+import { routes } from "routing/routes";
 
 export const ChatPage = () => {
     const { roomId } = useParams() as { roomId: string };

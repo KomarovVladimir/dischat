@@ -5,10 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 // import { startFakeServer } from "services/server.js";
 // import { io } from "socket.io-client";
 
-import { AppRoutes } from "routing";
+import { ErrorBoundary } from "components/ErrorBoundary";
+import { AppRoutes } from "routing/AppRoutes";
 
 import { store } from "./store";
-import { ErrorBoundary } from "components/ErrorBoundary";
 
 // if (process.env.NODE_ENV === "development") {
 //     startFakeServer();
