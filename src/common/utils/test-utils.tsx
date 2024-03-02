@@ -19,13 +19,13 @@ export function renderWithProviders(
         ...renderOptions
     }: ExtendedRenderOptions = {}
 ) {
-    function Wrapper({ children }: PropsWithChildren): JSX.Element {
+    const Wrapper = ({ children }: PropsWithChildren): JSX.Element => {
         return (
-            <Provider store={store}>
+            <Provider {...{ store }}>
                 <ThemeProvider {...{ theme }}>{children}</ThemeProvider>
             </Provider>
         );
-    }
+    };
 
     return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
