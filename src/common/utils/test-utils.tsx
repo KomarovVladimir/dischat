@@ -29,5 +29,3 @@ export function renderWithProviders(
 
     return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
-
-export * from "@testing-library/react";

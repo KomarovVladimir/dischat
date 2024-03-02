@@ -1,9 +1,9 @@
 import { IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-import { Input } from "./styled";
+import { Input } from "../styled";
 
-import { useChatInput } from "../hooks/useChatInput";
+import { useChatInput } from "../../hooks/useChatInput";
 
 export const ChatInput = () => {
     const { text, handleSend, handleSendMessage, handleChange } =
