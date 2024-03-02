@@ -1,23 +1,26 @@
 import { useParams } from "react-router-dom";
-import { createRef, useEffect } from "react";
+import { createRef, useEffect, useMemo } from "react";
 
 import { getMessageIdsByRoomId } from "features/rooms/slice/selectors";
 
-import { getMessagesByIds } from "../slice/selectors";
+import { getAllMessages } from "../slice/selectors";
 
 export const useChat = () => {
     const { roomId } = useParams() as { roomId: string };
 
     const messageIds = getMessageIdsByRoomId(roomId);
 
+    const allMessages = getAllMessages();
+
+    const messages = useMemo(
+        () => allMessages.filter(({ id }) => messageIds.includes(id)),
+        [messageIds]
+    );
+
     const endRef = createRef<HTMLDivElement>();
 
-    const messages = getMessagesByIds(messageIds);
-
     useEffect(() => {
-        if (messages) {
-            endRef.current?.scrollIntoView();
-        }
+        endRef.current?.scrollIntoView();
     }, [messages]);
 
     return {
