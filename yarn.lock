@@ -1493,7 +1493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.23.8, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2":
+"@babel/runtime@npm:^7.23.8, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6":
   version: 7.24.0
   resolution: "@babel/runtime@npm:7.24.0"
   dependencies:
@@ -4968,6 +4968,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/history@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@types/history@npm:5.0.0"
+  dependencies:
+    history: "npm:*"
+  checksum: 10c0/bce6d8da5217349dec97dfc4d9b65be03166351b86cb3e8764ed92b8b98eced1fc7ecb5bb17f1d7da894d065ffa3a12a8106444c174450a6d596241deef3f0a5
+  languageName: node
+  linkType: hard
+
 "@types/hoist-non-react-statics@npm:^3.3.0":
   version: 3.3.5
   resolution: "@types/hoist-non-react-statics@npm:3.3.5"
@@ -8334,6 +8343,7 @@ __metadata:
     "@svgr/webpack": "npm:^8.1.0"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/react": "npm:^14.2.1"
+    "@types/history": "npm:^5.0.0"
     "@types/jest": "npm:^29.5.12"
     "@types/node": "npm:^20.11.19"
     "@types/react": "npm:^18.2.56"
@@ -10691,6 +10701,15 @@ __metadata:
   version: 4.0.2
   resolution: "headers-polyfill@npm:4.0.2"
   checksum: 10c0/865736fa62028e2368f528a4d0fa0fc0f9cb44570a5acb79e38fc0b860b5a9bccdbf84553bb38b03d44e2aa85078256d70011cb731308aeea49f7bbafa3d66b0
+  languageName: node
+  linkType: hard
+
+"history@npm:*":
+  version: 5.3.0
+  resolution: "history@npm:5.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.7.6"
+  checksum: 10c0/812ec839386222d6437bd78d9f05db32e47d105ada0ad8834b32626919dd2fee7a10001bc489510f93a8069d02f118214bd8d42a82f7cf9daf8e84fbcbbb2016
   languageName: node
   linkType: hard
 

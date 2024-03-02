@@ -1,5 +1,3 @@
-import "@testing-library/jest-dom";
-import { screen } from "@testing-library/dom";
 import { fireEvent } from "@testing-library/react";
 import { Routes, Route, MemoryRouter } from "react-router";
 
@@ -44,7 +42,7 @@ describe("Chat Feature", () => {
             payload: { id: roomId }
         } = store.dispatch(roomAdded("Room 1"));
 
-        const { getByText } = renderWithProviders(
+        const { getByText, getByPlaceholderText } = renderWithProviders(
             <MemoryRouter initialEntries={[`/rooms/${roomId}`]}>
                 <Routes>
                     <Route path={routes.room} element={<Chat />} />
@@ -53,7 +51,7 @@ describe("Chat Feature", () => {
             { store }
         );
 
-        const inputElement = screen.getByPlaceholderText("Write a message...");
+        const inputElement = getByPlaceholderText("Write a message...");
 
         const messageText = "A message";
 

@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material";
-import { render, RenderOptions } from "@testing-library/react";
+import { RenderOptions, render } from "@testing-library/react";
 import { Provider } from "react-redux";
-import React, { PropsWithChildren } from "react";
+import { ReactElement, PropsWithChildren } from "react";
 
 import { setupStore, type AppStore, type RootState } from "app/store";
 import { theme } from "app/App";
@@ -12,7 +12,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 }
 
 export function renderWithProviders(
-    ui: React.ReactElement,
+    ui: ReactElement,
     {
         preloadedState = {},
         store = setupStore(preloadedState),
@@ -29,3 +29,5 @@ export function renderWithProviders(
 
     return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export * from "@testing-library/react";

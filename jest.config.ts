@@ -7,7 +7,8 @@ const jestConfig: JestConfigWithTsJest = {
     extensionsToTreatAsEsm: [".ts", ".tsx"],
     testEnvironment: "jsdom",
     roots: ["<rootDir>"],
-    modulePaths: [compilerOptions.baseUrl, `${compilerOptions.baseUrl}/common`]
+    modulePaths: [compilerOptions.baseUrl, `${compilerOptions.baseUrl}/common`],
+    setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"]
 };
 
 export default jestConfig;
