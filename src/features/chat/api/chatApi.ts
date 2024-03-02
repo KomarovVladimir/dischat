@@ -4,7 +4,7 @@ import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
 import { api } from "app/services/api";
 
 import { PostMessageRequest, MessageData } from "../types";
-import { MessageEntity } from "../slice/messagesSlice";
+import { type MessageEntity } from "../slice/messagesSlice";
 
 //TODO: Add synchronization between users. Make the chat distributed
 export const chatApi = api.injectEndpoints({

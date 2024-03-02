@@ -7,6 +7,7 @@ import { routes } from "./routes";
 
 const { baseRoute, room } = routes;
 
+//Rework the routes
 export const AppRoutes = () => (
     <Routes>
         <Route path={baseRoute} element={<ChatPage />}>

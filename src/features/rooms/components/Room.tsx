@@ -1,13 +1,13 @@
+import { EntityId } from "@reduxjs/toolkit";
 import { Avatar } from "@mui/material";
 
 import { ListItem } from "components";
 import { stringAvatar } from "lib";
-import { Id } from "types";
 
 import { useRoom } from "../hooks/useRoom";
 
-export type RoomProps = {
-    id: Id;
+type RoomProps = {
+    id: EntityId;
     name: string;
     imgSrc?: string;
 };

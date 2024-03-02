@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
 
 import { setupStore } from "app/store";
 import { renderWithProviders } from "common/utils/test-utils";
@@ -19,7 +20,11 @@ test("Renders Chat component", () => {
     store.dispatch(messageAdded({ text: "Message 2", roomId: id }));
     store.dispatch(messageAdded({ text: "Message 3", roomId: id }));
 
-    renderWithProviders(<Chat />, { store, route: `/rooms/${id}` });
+    const { getByText } = renderWithProviders(
+        <MemoryRouter initialEntries={[`/rooms/${id}`]}>
+            <Chat />
+        </MemoryRouter>
+    );
 
     expect(getByText("Message 1")).toBeInTheDocument();
     expect(getByText("Message 2")).toBeInTheDocument();

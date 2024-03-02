@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { useAppDispatch } from "app/store";
 
 // import { useAddRoomMutation } from "../api";
-import { FieldNames } from "../types";
+import { type FieldNames } from "../types";
 import { roomAdded } from "../slice/roomsSlice";
 
 const initialValues = {

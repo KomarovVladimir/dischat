@@ -1,11 +1,11 @@
 import {
     EntityId,
-    PayloadAction,
     createEntityAdapter,
     createSlice,
     nanoid
 } from "@reduxjs/toolkit";
-import { RootState, useAppSelector } from "app/store";
+
+import { type RootState } from "app/store";
 
 export type MessageEntity = {
     id: EntityId;
@@ -16,10 +16,6 @@ export type MessageEntity = {
     isError?: boolean;
     isSent?: boolean;
 };
-
-export type AddMessageAction = PayloadAction<
-    MessageEntity & { roomId: EntityId }
->;
 
 const messageAdapter = createEntityAdapter<MessageEntity>();
 
@@ -47,10 +43,3 @@ export const { messageAdded, messageRemoved } = messagesSlice.actions;
 export const messagesSelectors = messageAdapter.getSelectors<RootState>(
     (state) => state.messages
 );
-
-export const getMessagesByIds = (messageIds: EntityId[] = []) =>
-    useAppSelector((state) =>
-        messagesSelectors
-            .selectAll(state)
-            .filter(({ id }) => messageIds.includes(id))
-    );

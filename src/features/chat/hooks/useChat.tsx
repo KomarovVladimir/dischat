@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { createRef, useEffect } from "react";
 
-import { getMessageIdsByRoomId } from "features/rooms/slice/roomsSlice";
+import { getMessageIdsByRoomId } from "features/rooms/slice/selectors";
 
-import { getMessagesByIds } from "../slice/messagesSlice";
+import { getMessagesByIds } from "../slice/selectors";
 
 export const useChat = () => {
     const { roomId } = useParams() as { roomId: string };

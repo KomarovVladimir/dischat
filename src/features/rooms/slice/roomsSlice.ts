@@ -7,7 +7,6 @@ import {
     // current
 } from "@reduxjs/toolkit";
 
-import { RootState, useAppSelector } from "app/store";
 import { messageAdded } from "features/chat/slice/messagesSlice";
 
 export type RoomEntity = {
@@ -17,7 +16,7 @@ export type RoomEntity = {
     imgSrc?: string;
 };
 
-const roomsAdapter = createEntityAdapter<RoomEntity>();
+export const roomsAdapter = createEntityAdapter<RoomEntity>();
 
 //TODO: Add an extra reducer for message ids
 export const roomsSlice = createSlice({
@@ -55,18 +54,3 @@ export const roomsSlice = createSlice({
 });
 
 export const { roomAdded, roomRemoved } = roomsSlice.actions;
-
-export const roomsSelectors = roomsAdapter.getSelectors<RootState>(
-    (state) => state.rooms
-);
-
-export const getMessageIdsByRoomId = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectById(state, id)?.messageIds);
-
-export const getAllRooms = () => useAppSelector(roomsSelectors.selectAll);
-
-export const getRoomById = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectById(state, id));
-
-export const roomExists = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectIds(state).includes(id));
