@@ -7,6 +7,8 @@ import { roomAdded } from "features/rooms/slice/roomsSlice";
 import { Chat } from "../components/Chat";
 import { messageAdded } from "../slice/messagesSlice";
 
+window.HTMLElement.prototype.scrollIntoView = function () {};
+
 test("Renders Chat component", () => {
     const store = setupStore();
     const {
@@ -17,7 +19,7 @@ test("Renders Chat component", () => {
     store.dispatch(messageAdded({ text: "Message 2", roomId: id }));
     store.dispatch(messageAdded({ text: "Message 3", roomId: id }));
 
-    const { getByText } = renderWithProviders(<Chat />, { store });
+    renderWithProviders(<Chat />, { store, route: `/rooms/${id}` });
 
     expect(getByText("Message 1")).toBeInTheDocument();
     expect(getByText("Message 2")).toBeInTheDocument();
