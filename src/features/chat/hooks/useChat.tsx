@@ -12,10 +12,9 @@ export const useChat = () => {
 
     const allMessages = getAllMessages();
 
-    const messages = useMemo(
-        () => allMessages.filter(({ id }) => messageIds.includes(id)),
-        [messageIds]
-    );
+    const messages = useMemo(() => {
+        return allMessages?.filter(({ id }) => messageIds?.includes(id));
+    }, [messageIds]);
 
     const endRef = createRef<HTMLDivElement>();
 
