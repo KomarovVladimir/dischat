@@ -4,6 +4,8 @@ import { Rooms } from "features/rooms/components/Rooms";
 
 import { routes } from "routing/routes";
 import { roomExists } from "features/rooms/slice/selectors";
+import { Stack } from "@mui/material";
+import { UserSettingsDialog } from "features/userSettings/components/UserSettings";
 
 export const ChatPage = () => {
     const { roomId } = useParams() as { roomId: string };
@@ -11,7 +13,12 @@ export const ChatPage = () => {
 
     return (
         <ChatLayout
-            navigation={<Rooms />}
+            leftPanel={
+                <Stack justifyContent="space-between" alignItems="center">
+                    <Rooms />
+                    <UserSettingsDialog />
+                </Stack>
+            }
             chat={
                 room ? <Outlet /> : <Navigate to={routes.baseRoute} replace />
             }
