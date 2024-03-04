@@ -2,7 +2,7 @@ import { EntityId } from "@reduxjs/toolkit";
 
 export interface MessageData {
     id: string;
-    username: string;
+    userName: string;
     text: string;
     created?: string;
     lastUpdated?: string;

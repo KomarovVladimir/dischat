@@ -10,11 +10,10 @@ import { type RootState } from "app/store";
 export type MessageEntity = {
     id: EntityId;
     roomId: EntityId;
-    username?: string;
+    userName?: string;
     text: string;
     timestamp: string;
     isError?: boolean;
-    isSent?: boolean;
 };
 
 const messageAdapter = createEntityAdapter<MessageEntity>();
@@ -25,10 +24,11 @@ export const messagesSlice = createSlice({
     reducers: {
         messageAdded: {
             reducer: messageAdapter.addOne,
-            prepare: ({ roomId, text }) => ({
+            prepare: ({ userName, roomId, text }) => ({
                 payload: {
                     id: nanoid(),
                     roomId,
+                    userName,
                     text,
                     timestamp: new Date().toISOString()
                 }

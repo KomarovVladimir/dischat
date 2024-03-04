@@ -19,7 +19,9 @@ describe("Chat Feature", () => {
         } = store.dispatch(roomAdded("Room 1"));
 
         store.dispatch(messageAdded({ text: "Message 1", roomId }));
-        store.dispatch(messageAdded({ text: "Message 2", roomId }));
+        store.dispatch(
+            messageAdded({ userName: "UserName", text: "Message 2", roomId })
+        );
         store.dispatch(messageAdded({ text: "Message 3", roomId }));
 
         const { getByText } = renderWithProviders(
@@ -32,6 +34,7 @@ describe("Chat Feature", () => {
         );
 
         expect(getByText("Message 1")).toBeInTheDocument();
+        expect(getByText("UserName")).toBeInTheDocument();
         expect(getByText("Message 2")).toBeInTheDocument();
         expect(getByText("Message 3")).toBeInTheDocument();
     });

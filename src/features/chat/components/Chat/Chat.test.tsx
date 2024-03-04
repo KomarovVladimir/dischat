@@ -7,13 +7,13 @@ jest.mock("../../hooks/useChat.tsx", () => ({
         messages: [
             {
                 id: 1,
-                username: "User1",
+                userName: "User1",
                 timestamp: new Date().toISOString(),
                 text: "Hello!"
             },
             {
                 id: 2,
-                username: "User2",
+                userName: "User2",
                 timestamp: new Date().toISOString(),
                 text: "Hi!"
             }
