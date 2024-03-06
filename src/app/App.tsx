@@ -7,6 +7,7 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import { AppRoutes } from "routing/AppRoutes";
 
 import { store } from "./store";
+import { WebRTCProvider } from "./services/webRTC/webRTCProvider";
 
 export const theme = createTheme({
     palette: {
@@ -16,18 +17,18 @@ export const theme = createTheme({
 
 //TODO: Think on adding a redux persist
 export const App = () => {
-    return (
-        <StrictMode>
-            <Provider store={store}>
-                <ThemeProvider {...{ theme }}>
-                    <CssBaseline />
-                    <ErrorBoundary>
+    <StrictMode>
+        <ErrorBoundary>
+            <WebRTCProvider>
+                <Provider store={store}>
+                    <ThemeProvider {...{ theme }}>
+                        <CssBaseline />
                         <BrowserRouter>
                             <AppRoutes />
                         </BrowserRouter>
-                    </ErrorBoundary>
-                </ThemeProvider>
-            </Provider>
-        </StrictMode>
-    );
+                    </ThemeProvider>
+                </Provider>
+            </WebRTCProvider>
+        </ErrorBoundary>
+    </StrictMode>;
 };
