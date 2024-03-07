@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch } from "app/store";
 
 import { messageAdded } from "../slice/messagesSlice";
-import { useLocalStorage } from "common/hooks/useLocalStorage";
+import { useLocalStorage } from "app/hooks/useLocalStorage";
 
 //TODO: Add send checks
 //TODO: Move the error message to a constant

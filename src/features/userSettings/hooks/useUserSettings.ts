@@ -1,4 +1,4 @@
-import { useLocalStorage } from "common/hooks/useLocalStorage";
+import { useLocalStorage } from "app/hooks/useLocalStorage";
 import { KeyboardEvent, ChangeEvent, useEffect, useState } from "react";
 
 export const useUserSettings = () => {
