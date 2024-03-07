@@ -1,5 +1,5 @@
 import { PropsWithChildren, createContext } from "react";
-import { WebRTCService } from "../services/webRTC/WebRTCService ";
+import { WebRTCService } from "../services/WebRTCService ";
 
 const webRTCService = new WebRTCService();
 

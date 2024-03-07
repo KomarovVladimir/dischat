@@ -34,7 +34,7 @@ export const roomsSlice = createSlice({
             },
             prepare: (name: string) => ({
                 payload: {
-                    id: nanoid(),
+                    id: nanoid() as EntityId,
                     messageIds: [],
                     name
                 }

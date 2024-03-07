@@ -28,6 +28,7 @@ export const useChatInput = () => {
         }
     };
 
+    //TODO: Keep the draft
     useEffect(() => {
         setText("");
     }, [roomId]);

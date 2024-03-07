@@ -42,7 +42,10 @@ export const useRoomDialog = (onClose: () => void) => {
         setInputValues(initialValues);
         onClose();
 
+        //TODO: Rework the API
         webRTCService.createConnection(id);
+        webRTCService.createAndSetOffer(id);
+        console.log(webRTCService.getAllConnections());
 
         navigate(`/rooms/${id}`);
     };
