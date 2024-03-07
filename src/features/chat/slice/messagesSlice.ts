@@ -1,5 +1,6 @@
 import {
     EntityId,
+    PayloadAction,
     createEntityAdapter,
     createSlice,
     nanoid
@@ -24,12 +25,16 @@ export const messagesSlice = createSlice({
     reducers: {
         messageAdded: {
             reducer: messageAdapter.addOne,
-            prepare: ({ userName, roomId, text }) => ({
+            prepare: (
+                action: PayloadAction<{
+                    userName: string;
+                    roomId: string;
+                    text: string;
+                }>
+            ) => ({
                 payload: {
+                    ...action.payload,
                     id: nanoid(),
-                    roomId,
-                    userName,
-                    text,
                     timestamp: new Date().toISOString()
                 }
             })
