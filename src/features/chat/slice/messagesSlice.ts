@@ -5,7 +5,7 @@ import {
     nanoid
 } from "@reduxjs/toolkit";
 
-import { type RootState } from "app/store/store";
+import { type AppState } from "app/store/store";
 
 export type MessageEntity = {
     id: EntityId;
@@ -40,6 +40,6 @@ export const messagesSlice = createSlice({
 
 export const { messageAdded, messageRemoved } = messagesSlice.actions;
 
-export const messagesSelectors = messageAdapter.getSelectors<RootState>(
+export const messagesSelectors = messageAdapter.getSelectors<AppState>(
     (state) => state.messages
 );

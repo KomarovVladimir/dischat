@@ -1,10 +1,11 @@
 import { EntityId } from "@reduxjs/toolkit";
 
-import { type RootState, useAppSelector } from "app/store/store";
+import { type AppState } from "app/store/store";
+import { useAppSelector } from "app/hooks/storeHooks";
 
 import { roomsAdapter } from "./roomsSlice";
 
-export const roomsSelectors = roomsAdapter.getSelectors<RootState>(
+export const roomsSelectors = roomsAdapter.getSelectors<AppState>(
     (state) => state.rooms
 );
 

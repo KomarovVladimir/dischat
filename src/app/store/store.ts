@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 import { messagesSlice } from "features/chat/slice/messagesSlice";
 import { roomsSlice } from "features/rooms/slice/roomsSlice";
@@ -12,7 +11,7 @@ const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer
 });
 
-export const setupStore = (preloadedState?: Partial<RootState>) => {
+export const setupStore = (preloadedState?: Partial<AppState>) => {
     return configureStore({
         reducer: rootReducer,
         preloadedState,
@@ -23,9 +22,6 @@ export const setupStore = (preloadedState?: Partial<RootState>) => {
 
 export const store = setupStore();
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type AppState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore["dispatch"];
-
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

@@ -16,6 +16,8 @@ export type RoomEntity = {
     imgSrc?: string;
 };
 
+export type RoomAddedAction = PayloadAction<RoomEntity>;
+
 export const roomsAdapter = createEntityAdapter<RoomEntity>();
 
 //TODO: Add an extra reducer for message ids
@@ -24,7 +26,7 @@ export const roomsSlice = createSlice({
     initialState: roomsAdapter.getInitialState(),
     reducers: {
         roomAdded: {
-            reducer: (state, action: PayloadAction<RoomEntity>) => {
+            reducer: (state, action: RoomAddedAction) => {
                 roomsAdapter.addOne(state, {
                     ...action.payload,
                     messageIds: []

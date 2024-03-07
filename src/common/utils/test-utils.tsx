@@ -3,11 +3,11 @@ import { RenderOptions, render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { ReactElement, PropsWithChildren } from "react";
 
-import { setupStore, type AppStore, type RootState } from "app/store/store";
+import { setupStore, type AppStore, type AppState } from "app/store/store";
 import { theme } from "app/App";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
-    preloadedState?: Partial<RootState>;
+    preloadedState?: Partial<AppState>;
     store?: AppStore;
 }
 

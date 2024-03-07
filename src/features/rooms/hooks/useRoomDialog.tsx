@@ -3,8 +3,7 @@ import { EntityId } from "@reduxjs/toolkit";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router";
 
-import { useAppDispatch } from "app/store/store";
-
+import { useAppDispatch } from "app/hooks/storeHooks";
 // import { useAddRoomMutation } from "../api";
 import { type FieldNames } from "../types";
 import { roomAdded } from "../slice/roomsSlice";
