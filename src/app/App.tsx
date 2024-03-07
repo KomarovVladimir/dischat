@@ -16,7 +16,7 @@ export const theme = createTheme({
 });
 
 //TODO: Think on adding a redux persist
-export const App = () => {
+export const App = () => (
     <StrictMode>
         <ErrorBoundary>
             <WebRTCProvider>
@@ -30,5 +30,5 @@ export const App = () => {
                 </Provider>
             </WebRTCProvider>
         </ErrorBoundary>
-    </StrictMode>;
-};
+    </StrictMode>
+);
