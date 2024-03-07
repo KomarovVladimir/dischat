@@ -19,6 +19,7 @@ export const Room = ({ id, imgSrc, name }: RoomProps) => {
 
     return (
         <ListItem
+            sx={{ mb: 2 }}
             onClick={handleNavigate}
             icon={
                 imgSrc ? (
