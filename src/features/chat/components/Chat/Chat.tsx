@@ -14,12 +14,25 @@ import { useChat } from "../../hooks/useChat";
 
 //TODO: Add avatars
 //TODO: Create a message component
+//TODO: Remove the offer text
 export const Chat = () => {
-    const { messages, endRef } = useChat();
+    const { offer, messages, endRef } = useChat();
 
     return (
         <ChatPaper>
             <ChatBox dense disablePadding>
+                <Message dense disablePadding>
+                    <MessageContent>
+                        <Typography
+                            color="primary"
+                            fontWeight="600"
+                            fontSize="small"
+                        >
+                            Offer
+                        </Typography>
+                        {offer}
+                    </MessageContent>
+                </Message>
                 {messages?.map(({ id, userName, timestamp: date, text }) => (
                     <Message key={id} dense disablePadding>
                         <MessageContent>

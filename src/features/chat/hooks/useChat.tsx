@@ -1,12 +1,20 @@
 import { useParams } from "react-router-dom";
-import { createRef, useEffect, useMemo } from "react";
+import { createRef, useEffect, useMemo, useState } from "react";
 
 import { getMessageIdsByRoomId } from "features/rooms/slice/selectors";
 
 import { getAllMessages } from "../slice/selectors";
+import { useWebRTC } from "app/hooks/useWebRTC";
+import { EntityId } from "@reduxjs/toolkit";
 
 export const useChat = () => {
-    const { roomId } = useParams() as { roomId: string };
+    const { roomId } = useParams() as { roomId: EntityId };
+    const webRTC = useWebRTC();
+    const [offer, setOffer] = useState<string | undefined>();
+
+    useEffect(() => {
+        setOffer(webRTC.getConnection(roomId)?.localDescription?.sdp as string);
+    }, []);
 
     const messageIds = getMessageIdsByRoomId(roomId);
 
@@ -22,8 +30,5 @@ export const useChat = () => {
         endRef.current?.scrollIntoView();
     }, [messages]);
 
-    return {
-        messages,
-        endRef
-    };
+    return { offer, messages, endRef };
 };

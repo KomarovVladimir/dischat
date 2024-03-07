@@ -32,7 +32,7 @@ export const useRoomDialog = (onClose: () => void) => {
             });
         };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const {
@@ -44,8 +44,7 @@ export const useRoomDialog = (onClose: () => void) => {
 
         //TODO: Rework the API
         webRTCService.createConnection(id);
-        webRTCService.createAndSetOffer(id);
-        console.log(webRTCService.getAllConnections());
+        await webRTCService.createAndSetOffer(id);
 
         navigate(`/rooms/${id}`);
     };

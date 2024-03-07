@@ -11,7 +11,7 @@ export class WebRTCService {
         return this.connections[roomId];
     }
 
-    getConnection(roomId: EntityId): RTCPeerConnection | undefined {
+    getConnection(roomId: EntityId): RTCPeerConnection | null | undefined {
         return this.connections[roomId];
     }
 
