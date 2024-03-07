@@ -1,4 +1,4 @@
-import { KeyboardEvent, ChangeEvent, useState } from "react";
+import { KeyboardEvent, ChangeEvent, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useLocalStorage } from "app/hooks/useLocalStorage";
@@ -27,6 +27,10 @@ export const useChatInput = () => {
             setText("");
         }
     };
+
+    useEffect(() => {
+        setText("");
+    }, [roomId]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setText(e.target.value as string);
