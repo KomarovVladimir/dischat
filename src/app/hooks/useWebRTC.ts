@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { WebRTCContext } from "./webRTCProvider";
+import { WebRTCContext } from "../providers/WebRTCProvider";
 
 export const useWebRTC = () => {
     const context = useContext(WebRTCContext);

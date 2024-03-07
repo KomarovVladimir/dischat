@@ -2,6 +2,8 @@ export class WebRTCService {
     private connections: Record<string, RTCPeerConnection> = {};
 
     createConnection(roomId: string) {
+        console.log(roomId);
+
         if (!this.connections[roomId]) {
             this.connections[roomId] = new RTCPeerConnection();
         }

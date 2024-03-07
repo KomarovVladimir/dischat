@@ -1,13 +1,11 @@
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { createTheme } from "@mui/material";
 import { StrictMode } from "react";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { AppRoutes } from "routing/AppRoutes";
 
-import { store } from "./store";
-import { WebRTCProvider } from "./services/webRTC/webRTCProvider";
+import { RootProvider } from "./providers/RootProvider";
 
 export const theme = createTheme({
     palette: {
@@ -19,16 +17,11 @@ export const theme = createTheme({
 export const App = () => (
     <StrictMode>
         <ErrorBoundary>
-            <WebRTCProvider>
-                <Provider store={store}>
-                    <ThemeProvider {...{ theme }}>
-                        <CssBaseline />
-                        <BrowserRouter>
-                            <AppRoutes />
-                        </BrowserRouter>
-                    </ThemeProvider>
-                </Provider>
-            </WebRTCProvider>
+            <RootProvider>
+                <BrowserRouter>
+                    <AppRoutes />
+                </BrowserRouter>
+            </RootProvider>
         </ErrorBoundary>
     </StrictMode>
 );
