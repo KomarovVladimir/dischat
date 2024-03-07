@@ -1,4 +1,4 @@
-import { useAppSelector } from "app/store";
+import { useAppSelector } from "app/store/store";
 
 import { messagesSelectors } from "./messagesSlice";
 

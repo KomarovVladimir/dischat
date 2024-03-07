@@ -1,6 +1,6 @@
 import { Routes, Route, MemoryRouter } from "react-router";
 
-import { setupStore } from "app/store";
+import { setupStore } from "app/store/store";
 import { fireEvent, renderWithProviders } from "common/utils/test-utils";
 import { roomAdded } from "features/rooms/slice/roomsSlice";
 import { routes } from "routing/routes";

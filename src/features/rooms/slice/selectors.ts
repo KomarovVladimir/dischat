@@ -1,6 +1,6 @@
 import { EntityId } from "@reduxjs/toolkit";
 
-import { type RootState, useAppSelector } from "app/store";
+import { type RootState, useAppSelector } from "app/store/store";
 
 import { roomsAdapter } from "./roomsSlice";
 

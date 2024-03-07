@@ -1,7 +1,7 @@
 import { KeyboardEvent, ChangeEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { useAppDispatch } from "app/store";
+import { useAppDispatch } from "app/store/store";
 
 import { messageAdded } from "../slice/messagesSlice";
 import { useLocalStorage } from "app/hooks/useLocalStorage";

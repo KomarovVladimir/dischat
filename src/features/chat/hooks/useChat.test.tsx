@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 
-import { setupStore } from "app/store";
+import { setupStore } from "app/store/store";
 import { roomAdded } from "features/rooms/slice/roomsSlice";
 import { renderHook } from "common/utils/test-utils";
 

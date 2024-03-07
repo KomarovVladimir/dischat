@@ -4,7 +4,7 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { messagesSlice } from "features/chat/slice/messagesSlice";
 import { roomsSlice } from "features/rooms/slice/roomsSlice";
 
-import { api } from "./services/api";
+import { api } from "../services/api";
 
 const rootReducer = combineReducers({
     [messagesSlice.reducerPath]: messagesSlice.reducer,
