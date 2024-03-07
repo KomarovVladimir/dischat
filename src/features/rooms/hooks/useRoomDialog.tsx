@@ -4,6 +4,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router";
 
 import { useAppDispatch } from "app/hooks/storeHooks";
+import { useWebRTC } from "app/hooks/useWebRTC";
 // import { useAddRoomMutation } from "../api";
 import { type FieldNames } from "../types";
 import { roomAdded } from "../slice/roomsSlice";
@@ -17,6 +18,7 @@ const initialValues = {
 };
 
 export const useRoomDialog = (onClose: () => void) => {
+    const webRTCService = useWebRTC();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [{ name, roomId }, setInputValues] = useState(initialValues);
@@ -39,6 +41,8 @@ export const useRoomDialog = (onClose: () => void) => {
 
         setInputValues(initialValues);
         onClose();
+
+        webRTCService.createConnection(id);
 
         navigate(`/rooms/${id}`);
     };
