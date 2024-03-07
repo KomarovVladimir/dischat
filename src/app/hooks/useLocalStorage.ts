@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const useLocalStorage = (key: string, initialValue?: string) => {
-    const [value, setValue] = useState<string | null>(
+    const [value, setValue] = useState<string | undefined>(
         (localStorage.getItem(key) as string) ?? initialValue
     );
 
@@ -17,7 +17,7 @@ export const useLocalStorage = (key: string, initialValue?: string) => {
 
     const removeItem = () => {
         localStorage.removeItem(key);
-        setValue(null);
+        setValue(undefined);
     };
 
     return { value, setItem, getItem, removeItem };
