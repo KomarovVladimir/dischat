@@ -7,6 +7,7 @@ import { routes } from "routing/routes";
 import { stringAvatar } from "lib";
 
 import { Rooms } from "../components/Rooms";
+import { nanoid } from "@reduxjs/toolkit";
 
 window.HTMLElement.prototype.scrollIntoView = function () {};
 
@@ -15,10 +16,10 @@ describe("Rooms Feature", () => {
         const store = setupStore();
         const {
             payload: { name: name1 }
-        } = store.dispatch(roomAdded("Room 1"));
+        } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
         const {
             payload: { name: name2 }
-        } = store.dispatch(roomAdded("Test 2"));
+        } = store.dispatch(roomAdded({ id: nanoid(), name: "Test 2" }));
 
         const { getByText } = renderWithProviders(
             <MemoryRouter initialEntries={[routes.baseRoute]}>

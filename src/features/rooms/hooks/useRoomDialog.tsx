@@ -6,6 +6,7 @@ import { useAppDispatch } from "app/hooks/storeHooks";
 import { useWebRTC } from "app/hooks/useWebRTC";
 // import { useAddRoomMutation } from "../api";
 import { roomAdded } from "../slice/roomsSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 const initialValues = {
     name: "",
@@ -35,22 +36,21 @@ export const useRoomDialog = (onClose: () => void) => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        //TODO: Create room only on success. Create the room ID here to use further
-        const {
-            payload: { id }
-        } = dispatch(roomAdded(name));
+        const id = nanoid();
 
         //TODO: Rework the WebRTC API
         try {
             if (name) {
                 webRTCService.createConnection(id);
                 await webRTCService.createAndSetOffer(id);
+                dispatch(roomAdded({ id, name }));
             } else if (description) {
                 webRTCService.createConnection(id);
                 await webRTCService.setRemoteDescription({
                     roomId: id,
                     sessionDescription: description
                 });
+                dispatch(roomAdded({ id, name }));
                 console.log(webRTCService.getAllConnections());
             }
         } catch (error) {

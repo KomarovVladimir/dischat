@@ -8,6 +8,7 @@ import { routes } from "routing/routes";
 
 import { Chat } from "../components/Chat";
 import { messageAdded } from "../slice/messagesSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 window.HTMLElement.prototype.scrollIntoView = function () {};
 
@@ -16,7 +17,7 @@ describe("Chat Feature", () => {
         const store = setupStore();
         const {
             payload: { id: roomId }
-        } = store.dispatch(roomAdded("Room 1"));
+        } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
 
         store.dispatch(messageAdded({ text: "Message 1", roomId }));
         store.dispatch(
@@ -43,7 +44,7 @@ describe("Chat Feature", () => {
         const store = setupStore();
         const {
             payload: { id: roomId }
-        } = store.dispatch(roomAdded("Room 1"));
+        } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
 
         const { getByText, getByPlaceholderText } = renderWithProviders(
             <MemoryRouter initialEntries={[`/rooms/${roomId}`]}>

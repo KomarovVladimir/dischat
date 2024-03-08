@@ -3,8 +3,7 @@ import {
     PayloadAction,
     createEntityAdapter,
     createSlice,
-    current,
-    nanoid
+    current
 } from "@reduxjs/toolkit";
 
 import { messageAdded } from "features/chat/slice/messagesSlice";
@@ -16,7 +15,7 @@ export type RoomEntity = {
     imgSrc?: string;
 };
 
-export type RoomAddedAction = PayloadAction<RoomEntity>;
+export type RoomAddedAction = PayloadAction<Omit<RoomEntity, "messageIds">>;
 
 export const roomsAdapter = createEntityAdapter<RoomEntity>();
 
@@ -25,20 +24,11 @@ export const roomsSlice = createSlice({
     name: "rooms",
     initialState: roomsAdapter.getInitialState(),
     reducers: {
-        roomAdded: {
-            reducer: (state, action: RoomAddedAction) => {
-                roomsAdapter.addOne(state, {
-                    ...action.payload,
-                    messageIds: []
-                });
-            },
-            prepare: (name: string) => ({
-                payload: {
-                    id: nanoid() as EntityId,
-                    messageIds: [],
-                    name
-                }
-            })
+        roomAdded: (state, { payload }: RoomAddedAction) => {
+            roomsAdapter.addOne(state, {
+                ...payload,
+                messageIds: []
+            });
         },
         roomRemoved: roomsAdapter.removeOne
     },

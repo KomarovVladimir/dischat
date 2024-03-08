@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
 import { setupStore } from "app/store/store";
@@ -14,7 +15,7 @@ test("useChat returns correct messages based on room", () => {
 
     const {
         payload: { id: roomId }
-    } = store.dispatch(roomAdded("Room 1"));
+    } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
 
     store.dispatch(messageAdded({ text: "Message 1", roomId }));
     store.dispatch(messageAdded({ text: "Message 2", roomId }));
