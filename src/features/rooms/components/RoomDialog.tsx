@@ -22,8 +22,14 @@ type CreationDialogProps = {
 //TODO: Add i18n
 //TODO: Add reject error handling
 export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
-    const { name, description, handleChange, handleSubmit, handleClose } =
-        useRoomDialog(onClose);
+    const {
+        name,
+        answer,
+        description,
+        handleChange,
+        handleSubmit,
+        handleClose
+    } = useRoomDialog(onClose);
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
@@ -32,14 +38,25 @@ export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
                     <Stack spacing={2}>
                         {name && <DialogTitle>Create a new room</DialogTitle>}
                         {!description && (
-                            <TextField
-                                placeholder="Write a new room name"
-                                autoFocus
-                                disabled={Boolean(description)}
-                                value={name}
-                                onChange={handleChange("name")}
-                                autoComplete="off"
-                            />
+                            <>
+                                <TextField
+                                    placeholder="Write a new room name"
+                                    autoFocus
+                                    disabled={Boolean(description)}
+                                    value={name}
+                                    onChange={handleChange("name")}
+                                    autoComplete="off"
+                                />
+                                {name && (
+                                    <TextField
+                                        placeholder="Paste an answer"
+                                        disabled={Boolean(description)}
+                                        value={answer}
+                                        onChange={handleChange("answer")}
+                                        autoComplete="off"
+                                    />
+                                )}
+                            </>
                         )}
                         {!name && !description && <Divider>OR</Divider>}
                         {description && (

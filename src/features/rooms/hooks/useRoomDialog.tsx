@@ -13,22 +13,47 @@ const initialValues = {
     description: ""
 } as {
     name: string;
+    answer: string;
     description: string;
 };
 
-type FieldNames = "name" | "description";
+type FieldNames = "name" | "description" | "answer";
+
+enum DialogState {
+    INITIAL,
+    ADDING,
+    ANSWER,
+    JOINING
+}
 
 //TODO: Move the webrtc specific logic?
 export const useRoomDialog = (onClose: () => void) => {
+    const [state, setState] = useState<DialogState>(DialogState.INITIAL);
     const webRTCService = useWebRTC();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [{ name, description }, setInputValues] = useState(initialValues);
+    const [{ name, description, answer }, setInputValues] =
+        useState(initialValues);
 
     const handleChange =
         (field: FieldNames) => (event: ChangeEvent<HTMLInputElement>) => {
+            switch (field) {
+                case "name":
+                    setState(DialogState.ADDING);
+                    break;
+                case "description":
+                    setState(DialogState.JOINING);
+                    break;
+                default:
+                    if (!name && !description && !answer) {
+                        setState(DialogState.INITIAL);
+                    }
+                    break;
+            }
+
             setInputValues({
                 name,
+                answer,
                 description,
                 [field]: event.currentTarget.value
             });
@@ -39,12 +64,25 @@ export const useRoomDialog = (onClose: () => void) => {
 
         const id = nanoid();
 
+        switch (state) {
+            case DialogState.ADDING:
+                break;
+            case DialogState.ANSWER:
+                break;
+            case DialogState.JOINING:
+                break;
+            default:
+                break;
+        }
+
         //TODO: Rework the WebRTC API
         try {
             if (name) {
                 webRTCService.createConnection(id);
 
-                await webRTCService.createAndSetOffer(id);
+                const result = await webRTCService.createAndSetOffer(id);
+
+                console.log(JSON.stringify(result));
 
                 dispatch(roomAdded({ id, name }));
 
@@ -64,13 +102,13 @@ export const useRoomDialog = (onClose: () => void) => {
                 navigate(`/rooms/${id}`);
 
                 console.log(webRTCService.getAllConnections());
+                setInputValues(initialValues);
+                onClose();
             }
         } catch (error) {
             console.error(`Error: RTC initialization failed. ${error}`);
         }
 
-        setInputValues(initialValues);
-        onClose();
         navigate(`/rooms/${id}`);
     };
 
@@ -80,6 +118,8 @@ export const useRoomDialog = (onClose: () => void) => {
     };
 
     return {
+        answer,
+        state,
         name,
         description,
         handleChange,
