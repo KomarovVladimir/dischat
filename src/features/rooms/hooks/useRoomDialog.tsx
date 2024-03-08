@@ -35,6 +35,7 @@ export const useRoomDialog = (onClose: () => void) => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        //TODO: Create room only on success. Create the room ID here to use further
         const {
             payload: { id }
         } = dispatch(roomAdded(name));
