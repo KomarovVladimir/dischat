@@ -11,10 +11,18 @@ export const useChat = () => {
     const { roomId } = useParams() as { roomId: EntityId };
     const webRTC = useWebRTC();
     const [offer, setOffer] = useState<string | undefined>();
+    const [answer, setAnswer] = useState<string | undefined>();
 
     useEffect(() => {
         setOffer(
-            JSON.stringify(webRTC.getConnection(roomId)?.localDescription)
+            JSON.stringify(
+                webRTC.getConnection(roomId as string)?.localDescription
+            )
+        );
+        setAnswer(
+            JSON.stringify(
+                webRTC.getConnection(roomId as string)?.remoteDescription
+            )
         );
     }, []);
 
@@ -32,5 +40,5 @@ export const useChat = () => {
         endRef.current?.scrollIntoView();
     }, [messages]);
 
-    return { offer, messages, endRef };
+    return { answer, offer, messages, endRef };
 };

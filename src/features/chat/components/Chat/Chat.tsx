@@ -16,23 +16,39 @@ import { useChat } from "../../hooks/useChat";
 //TODO: Create a message component
 //TODO: Remove the offer text
 export const Chat = () => {
-    const { offer, messages, endRef } = useChat();
+    const { answer, offer, messages, endRef } = useChat();
 
     return (
         <ChatPaper>
             <ChatBox dense disablePadding>
-                <Message dense disablePadding>
-                    <MessageContent>
-                        <Typography
-                            color="primary"
-                            fontWeight="600"
-                            fontSize="small"
-                        >
-                            Offer
-                        </Typography>
-                        {offer}
-                    </MessageContent>
-                </Message>
+                {offer && (
+                    <Message dense disablePadding>
+                        <MessageContent>
+                            <Typography
+                                color="primary"
+                                fontWeight="600"
+                                fontSize="small"
+                            >
+                                Offer
+                            </Typography>
+                            {offer}
+                        </MessageContent>
+                    </Message>
+                )}{" "}
+                {answer && (
+                    <Message dense disablePadding>
+                        <MessageContent>
+                            <Typography
+                                color="primary"
+                                fontWeight="600"
+                                fontSize="small"
+                            >
+                                Answer
+                            </Typography>
+                            {answer}
+                        </MessageContent>
+                    </Message>
+                )}
                 {messages?.map(({ id, userName, timestamp: date, text }) => (
                     <Message key={id} dense disablePadding>
                         <MessageContent>
