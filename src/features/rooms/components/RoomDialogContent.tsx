@@ -69,7 +69,7 @@ export const RoomDialogContent = ({
                     state
                 ) && (
                     <>
-                        <DialogTitle>Join an existing room</DialogTitle>
+                        <DialogTitle>Join an existing</DialogTitle>
                         <TextField
                             placeholder="Paste a Session Description Protocol"
                             disabled={Boolean(name)}
