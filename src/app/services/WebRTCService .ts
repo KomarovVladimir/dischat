@@ -1,48 +1,53 @@
-import { EntityId } from "@reduxjs/toolkit";
-
 export class WebRTCService {
-    private connections: Record<EntityId, RTCPeerConnection> = {};
+    private connections: Record<string, RTCPeerConnection> = {};
 
-    createConnection(roomId: EntityId) {
-        if (!this.connections[roomId]) {
-            this.connections[roomId] = new RTCPeerConnection();
+    createConnection(id: string) {
+        if (!this.connections[id]) {
+            this.connections[id] = new RTCPeerConnection();
         }
 
-        return this.connections[roomId];
+        return this.connections[id];
     }
 
-    getConnection(roomId: EntityId): RTCPeerConnection | null | undefined {
-        return this.connections[roomId];
+    getConnection(id: string): RTCPeerConnection | null | undefined {
+        return this.connections[id];
     }
 
     getAllConnections() {
         return this.connections;
     }
 
-    closeConnection(roomId: EntityId) {
-        const pc = this.connections[roomId];
+    closeConnection(id: string) {
+        const pc = this.connections[id];
 
         if (pc) {
             pc.close();
-            delete this.connections[roomId];
+            delete this.connections[id];
         }
     }
 
-    async createAndSetOffer(roomId: EntityId) {
-        const offer = await this.connections[roomId].createOffer();
-        await this.connections[roomId].setLocalDescription(offer);
+    async createAndSetOffer(id: string) {
+        const offer = await this.connections[id].createOffer();
+        await this.connections[id].setLocalDescription(offer);
 
         return offer;
     }
 
+    async createAndSetAnswer(id: string): Promise<RTCSessionDescriptionInit> {
+        const answer = await this.connections[id].createAnswer();
+        await this.connections[id].setLocalDescription(answer);
+
+        return answer;
+    }
+
     async setRemoteDescription({
-        roomId,
+        id,
         sessionDescription
     }: {
-        roomId: EntityId;
+        id: string;
         sessionDescription: string;
     }) {
-        await this.connections[roomId].setRemoteDescription(
+        await this.connections[id].setRemoteDescription(
             JSON.parse(sessionDescription)
         );
     }

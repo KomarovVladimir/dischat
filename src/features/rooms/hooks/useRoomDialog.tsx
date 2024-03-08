@@ -18,6 +18,7 @@ const initialValues = {
 
 type FieldNames = "name" | "description";
 
+//TODO: Move the webrtc specific logic?
 export const useRoomDialog = (onClose: () => void) => {
     const webRTCService = useWebRTC();
     const navigate = useNavigate();
@@ -42,16 +43,24 @@ export const useRoomDialog = (onClose: () => void) => {
         try {
             if (name) {
                 webRTCService.createConnection(id);
+
                 await webRTCService.createAndSetOffer(id);
+
                 dispatch(roomAdded({ id, name }));
+
                 navigate(`/rooms/${id}`);
             } else if (description) {
                 webRTCService.createConnection(id);
+
                 await webRTCService.setRemoteDescription({
-                    roomId: id,
+                    id,
                     sessionDescription: description
                 });
+
+                await webRTCService.createAndSetAnswer(id);
+
                 dispatch(roomAdded({ id, name }));
+
                 navigate(`/rooms/${id}`);
 
                 console.log(webRTCService.getAllConnections());
