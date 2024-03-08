@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
     return {
         entry: path.resolve(__dirname, "src/index.tsx"),
         mode: env.production ? "production" : "development",
-        devtool: env.production ? "source-map" : "eval",
+        devtool: env.production ? "eval" : "source-map",
         output: {
             filename: "bundle.js",
             path: path.resolve(__dirname, "dist"),
