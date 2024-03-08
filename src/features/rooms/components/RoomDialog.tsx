@@ -1,18 +1,9 @@
-import {
-    Dialog,
-    TextField,
-    Button,
-    DialogActions,
-    DialogContent,
-    Box,
-    Divider,
-    Stack,
-    DialogTitle
-} from "@mui/material";
+import { Dialog, Button, DialogActions, Box } from "@mui/material";
 
 import { Paper } from "components";
 
 import { useRoomDialog } from "../hooks/useRoomDialog";
+import { RoomDialogContent } from "./RoomDialogContent";
 
 type CreationDialogProps = {
     open: boolean;
@@ -24,6 +15,7 @@ type CreationDialogProps = {
 export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
     const {
         name,
+        state,
         answer,
         description,
         handleChange,
@@ -34,45 +26,15 @@ export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
             <Box component="form" onSubmit={handleSubmit}>
-                <DialogContent>
-                    <Stack spacing={2}>
-                        {name && <DialogTitle>Create a new room</DialogTitle>}
-                        {!description && (
-                            <>
-                                <TextField
-                                    placeholder="Write a new room name"
-                                    autoFocus
-                                    disabled={Boolean(description)}
-                                    value={name}
-                                    onChange={handleChange("name")}
-                                    autoComplete="off"
-                                />
-                                {name && (
-                                    <TextField
-                                        placeholder="Paste an answer"
-                                        disabled={Boolean(description)}
-                                        value={answer}
-                                        onChange={handleChange("answer")}
-                                        autoComplete="off"
-                                    />
-                                )}
-                            </>
-                        )}
-                        {!name && !description && <Divider>OR</Divider>}
-                        {description && (
-                            <DialogTitle>Join an existing room</DialogTitle>
-                        )}
-                        {!name && (
-                            <TextField
-                                placeholder="Paste a Session Description Protocol"
-                                disabled={Boolean(name)}
-                                value={description}
-                                onChange={handleChange("description")}
-                                autoComplete="off"
-                            />
-                        )}
-                    </Stack>
-                </DialogContent>
+                <RoomDialogContent
+                    {...{
+                        name,
+                        state,
+                        answer,
+                        description,
+                        handleChange
+                    }}
+                />
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button disabled={!name && !description} type="submit">

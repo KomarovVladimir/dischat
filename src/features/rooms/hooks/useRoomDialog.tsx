@@ -1,5 +1,5 @@
 // import { QueryStatus } from "@reduxjs/toolkit/query";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { useAppDispatch } from "app/hooks/storeHooks";
@@ -17,9 +17,9 @@ const initialValues = {
     description: string;
 };
 
-type FieldNames = "name" | "description" | "answer";
+export type FieldNames = "name" | "description" | "answer";
 
-enum DialogState {
+export enum DialogStates {
     INITIAL,
     ADDING,
     ANSWER,
@@ -28,26 +28,33 @@ enum DialogState {
 
 //TODO: Move the webrtc specific logic?
 export const useRoomDialog = (onClose: () => void) => {
-    const [state, setState] = useState<DialogState>(DialogState.INITIAL);
+    const [state, setState] = useState<DialogStates>(DialogStates.INITIAL);
     const webRTCService = useWebRTC();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [{ name, description, answer }, setInputValues] =
         useState(initialValues);
 
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
+
+    useEffect(() => {
+        if (!name && !description && !answer) {
+            setState(DialogStates.INITIAL);
+        }
+    }, [name, description, answer]);
+
     const handleChange =
         (field: FieldNames) => (event: ChangeEvent<HTMLInputElement>) => {
             switch (field) {
                 case "name":
-                    setState(DialogState.ADDING);
+                    setState(DialogStates.ADDING);
                     break;
                 case "description":
-                    setState(DialogState.JOINING);
+                    setState(DialogStates.JOINING);
                     break;
                 default:
-                    if (!name && !description && !answer) {
-                        setState(DialogState.INITIAL);
-                    }
                     break;
             }
 
@@ -65,51 +72,52 @@ export const useRoomDialog = (onClose: () => void) => {
         const id = nanoid();
 
         switch (state) {
-            case DialogState.ADDING:
+            case DialogStates.ADDING:
+                setState(DialogStates.ANSWER);
                 break;
-            case DialogState.ANSWER:
+            case DialogStates.ANSWER:
+                try {
+                    webRTCService.createConnection(id);
+
+                    const result = await webRTCService.createAndSetOffer(id);
+
+                    //TODO: Remove
+                    console.log(JSON.stringify(result));
+
+                    dispatch(roomAdded({ id, name }));
+
+                    navigate(`/rooms/${id}`);
+                } catch (error) {
+                    console.error(`Error: RTC initialization failed. ${error}`);
+                }
+
                 break;
-            case DialogState.JOINING:
+            case DialogStates.JOINING:
+                try {
+                    webRTCService.createConnection(id);
+
+                    await webRTCService.setRemoteDescription({
+                        id,
+                        sessionDescription: description
+                    });
+
+                    await webRTCService.createAndSetAnswer(id);
+
+                    dispatch(roomAdded({ id, name }));
+
+                    navigate(`/rooms/${id}`);
+
+                    console.log(webRTCService.getAllConnections());
+                    setInputValues(initialValues);
+
+                    onClose();
+                } catch (error) {
+                    console.error(`Error: RTC initialization failed. ${error}`);
+                }
                 break;
             default:
                 break;
         }
-
-        //TODO: Rework the WebRTC API
-        try {
-            if (name) {
-                webRTCService.createConnection(id);
-
-                const result = await webRTCService.createAndSetOffer(id);
-
-                console.log(JSON.stringify(result));
-
-                dispatch(roomAdded({ id, name }));
-
-                navigate(`/rooms/${id}`);
-            } else if (description) {
-                webRTCService.createConnection(id);
-
-                await webRTCService.setRemoteDescription({
-                    id,
-                    sessionDescription: description
-                });
-
-                await webRTCService.createAndSetAnswer(id);
-
-                dispatch(roomAdded({ id, name }));
-
-                navigate(`/rooms/${id}`);
-
-                console.log(webRTCService.getAllConnections());
-                setInputValues(initialValues);
-                onClose();
-            }
-        } catch (error) {
-            console.error(`Error: RTC initialization failed. ${error}`);
-        }
-
-        navigate(`/rooms/${id}`);
     };
 
     const handleClose = () => {
