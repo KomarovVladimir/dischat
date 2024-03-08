@@ -44,6 +44,7 @@ export const useRoomDialog = (onClose: () => void) => {
                 webRTCService.createConnection(id);
                 await webRTCService.createAndSetOffer(id);
                 dispatch(roomAdded({ id, name }));
+                navigate(`/rooms/${id}`);
             } else if (description) {
                 webRTCService.createConnection(id);
                 await webRTCService.setRemoteDescription({
@@ -51,6 +52,8 @@ export const useRoomDialog = (onClose: () => void) => {
                     sessionDescription: description
                 });
                 dispatch(roomAdded({ id, name }));
+                navigate(`/rooms/${id}`);
+
                 console.log(webRTCService.getAllConnections());
             }
         } catch (error) {
