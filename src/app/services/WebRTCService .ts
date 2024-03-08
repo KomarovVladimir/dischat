@@ -30,6 +30,8 @@ export class WebRTCService {
         const offer = await this.connections[id].createOffer();
         await this.connections[id].setLocalDescription(offer);
 
+        console.log(this.connections[id]);
+
         return offer;
     }
 
@@ -40,6 +42,7 @@ export class WebRTCService {
         return answer;
     }
 
+    //TODO: Handle errors
     async setRemoteDescription({
         id,
         sessionDescription

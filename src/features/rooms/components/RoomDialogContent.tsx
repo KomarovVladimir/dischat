@@ -18,6 +18,7 @@ type RoomDialogContentProps = {
     ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
+//TODO: Add some sort of steps logic or switch like wrapper
 export const RoomDialogContent = ({
     state,
     name,
