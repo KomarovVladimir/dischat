@@ -51,4 +51,16 @@ export class WebRTCService {
             JSON.parse(sessionDescription)
         );
     }
+
+    async addIceCandidates({
+        id,
+        candidates
+    }: {
+        id: string;
+        candidates: RTCIceCandidateInit[];
+    }) {
+        for (const candidate of candidates) {
+            await this.connections[id].addIceCandidate(candidate);
+        }
+    }
 }
