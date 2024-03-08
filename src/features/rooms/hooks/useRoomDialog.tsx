@@ -1,33 +1,33 @@
 // import { QueryStatus } from "@reduxjs/toolkit/query";
-import { EntityId } from "@reduxjs/toolkit";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router";
 
 import { useAppDispatch } from "app/hooks/storeHooks";
 import { useWebRTC } from "app/hooks/useWebRTC";
 // import { useAddRoomMutation } from "../api";
-import { type FieldNames } from "../types";
 import { roomAdded } from "../slice/roomsSlice";
 
 const initialValues = {
     name: "",
-    roomId: ""
+    description: ""
 } as {
     name: string;
-    roomId: EntityId;
+    description: string;
 };
+
+type FieldNames = "name" | "description";
 
 export const useRoomDialog = (onClose: () => void) => {
     const webRTCService = useWebRTC();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [{ name, roomId }, setInputValues] = useState(initialValues);
+    const [{ name, description }, setInputValues] = useState(initialValues);
 
     const handleChange =
         (field: FieldNames) => (event: ChangeEvent<HTMLInputElement>) => {
             setInputValues({
                 name,
-                roomId,
+                description,
                 [field]: event.currentTarget.value
             });
         };
@@ -39,13 +39,25 @@ export const useRoomDialog = (onClose: () => void) => {
             payload: { id }
         } = dispatch(roomAdded(name));
 
+        //TODO: Rework the WebRTC API
+        try {
+            if (name) {
+                webRTCService.createConnection(id);
+                await webRTCService.createAndSetOffer(id);
+            } else if (description) {
+                webRTCService.createConnection(id);
+                await webRTCService.setRemoteDescription({
+                    roomId: id,
+                    sessionDescription: description
+                });
+                console.log(webRTCService.getAllConnections());
+            }
+        } catch (error) {
+            console.error(`Error: RTC initialization failed. ${error}`);
+        }
+
         setInputValues(initialValues);
         onClose();
-
-        //TODO: Rework the API
-        webRTCService.createConnection(id);
-        await webRTCService.createAndSetOffer(id);
-
         navigate(`/rooms/${id}`);
     };
 
@@ -56,7 +68,7 @@ export const useRoomDialog = (onClose: () => void) => {
 
     return {
         name,
-        roomId,
+        description,
         handleChange,
         handleSubmit,
         handleClose

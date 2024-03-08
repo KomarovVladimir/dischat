@@ -35,13 +35,15 @@ export class WebRTCService {
         return offer;
     }
 
-    setRemoteDescription({
+    async setRemoteDescription({
         roomId,
-        remoteDescription
+        sessionDescription
     }: {
         roomId: EntityId;
-        remoteDescription: RTCSessionDescriptionInit;
+        sessionDescription: string;
     }) {
-        this.connections[roomId].setRemoteDescription(remoteDescription);
+        await this.connections[roomId].setRemoteDescription(
+            JSON.parse(sessionDescription)
+        );
     }
 }

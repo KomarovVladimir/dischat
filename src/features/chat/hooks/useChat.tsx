@@ -13,7 +13,9 @@ export const useChat = () => {
     const [offer, setOffer] = useState<string | undefined>();
 
     useEffect(() => {
-        setOffer(webRTC.getConnection(roomId)?.localDescription?.sdp as string);
+        setOffer(
+            JSON.stringify(webRTC.getConnection(roomId)?.localDescription)
+        );
     }, []);
 
     const messageIds = getMessageIdsByRoomId(roomId);
