@@ -26,6 +26,12 @@ export class WebRTCService {
         }
     }
 
+    closeAllConnections() {
+        for (const connection in this.connections) {
+            this.closeConnection(connection);
+        }
+    }
+
     async createAndSetOffer(id: string) {
         const offer = await this.connections[id].createOffer();
         await this.connections[id].setLocalDescription(offer);
