@@ -80,8 +80,6 @@ export const useRoomDialog = (onClose: () => void) => {
                     const result =
                         await webRTCService.createAndSetOffer(roomId);
 
-                    console.log(webRTCService.getAllConnections());
-
                     //TODO: Remove
                     console.log(JSON.stringify(result));
                 } catch (error) {
@@ -101,8 +99,6 @@ export const useRoomDialog = (onClose: () => void) => {
                     setInputValues(initialValues);
                     onClose();
 
-                    console.log(webRTCService.getAllConnections());
-
                     navigate(`/rooms/${roomId}`);
                 } catch (error) {
                     console.error(`Error: RTC initialization failed. ${error}`);
@@ -121,8 +117,6 @@ export const useRoomDialog = (onClose: () => void) => {
                     await webRTCService.createAndSetAnswer(roomId);
 
                     dispatch(roomAdded({ id: roomId, name }));
-
-                    console.log(webRTCService.getAllConnections());
 
                     setInputValues(initialValues);
                     onClose();
