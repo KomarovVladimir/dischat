@@ -1,12 +1,76 @@
 export class WebRTCService {
     private connections: Record<string, RTCPeerConnection> = {};
+    private dataChannels: Record<string, RTCDataChannel> = {};
 
     createConnection(id: string) {
         if (!this.connections[id]) {
+            console.log(`${id}: Creating connection`);
+
             this.connections[id] = new RTCPeerConnection();
+
+            console.log(`${id}: Connection created`);
+
+            this.connections[id].onicecandidate = ({ candidate }) => {
+                if (candidate) {
+                    console.log("ICE candidate:", candidate);
+                } else {
+                    console.log("ICE gathering complete");
+                }
+            };
+
+            this.connections[id].onicegatheringstatechange = (event) => {
+                if (this.connections[id].iceGatheringState === "complete") {
+                    console.log(`${id}: Ice gathering complete`);
+                }
+            };
+
+            this.connections[id].oniceconnectionstatechange = (event) => {
+                console.log(
+                    `${id}: ICE connection state: ${this.connections[id].iceConnectionState}`
+                );
+            };
+
+            this.connections[id].onsignalingstatechange = (event) => {
+                console.log(
+                    `${id}: Signaling state: ${this.connections[id].signalingState}`
+                );
+            };
         }
 
         return this.connections[id];
+    }
+
+    createDataChannel({ id, label }: { id: string; label: string }) {
+        console.log(`${id}: Create data channel`);
+        this.dataChannels[id] = this.connections[id].createDataChannel(label);
+        console.log(`${id}: Data channel created`);
+
+        this.dataChannels[id].onopen = () => {
+            this.dataChannels[id].send("Hi you!");
+        };
+
+        this.dataChannels[id].onmessage = (event) => {
+            const message = event.data;
+            console.log(message);
+        };
+
+        this.dataChannels[id].onclose = () => {
+            console.log("Data channel closed");
+        };
+
+        console.log(this.dataChannels, this.dataChannels[id].onopen);
+    }
+
+    async addIceCandidates({
+        id,
+        candidates
+    }: {
+        id: string;
+        candidates: RTCIceCandidateInit[];
+    }) {
+        for (const candidate of candidates) {
+            await this.connections[id].addIceCandidate(candidate);
+        }
     }
 
     getConnection(id: string): RTCPeerConnection | null | undefined {
@@ -18,11 +82,20 @@ export class WebRTCService {
     }
 
     closeConnection(id: string) {
-        const pc = this.connections[id];
+        const peerConnection = this.connections[id];
 
-        if (pc) {
-            pc.close();
+        if (peerConnection) {
+            peerConnection.close();
             delete this.connections[id];
+        }
+    }
+
+    closeDataChannel(id: string) {
+        const channel = this.dataChannels[id];
+
+        if (channel) {
+            channel.close();
+            delete this.dataChannels[id];
         }
     }
 
@@ -33,12 +106,19 @@ export class WebRTCService {
     }
 
     async createAndSetOffer(id: string) {
-        const offer = await this.connections[id].createOffer();
-        await this.connections[id].setLocalDescription(offer);
+        try {
+            console.log(`${id}: Creating offer`);
+            const offer = await this.connections[id].createOffer();
+            console.log(`${id}: Offer created`);
 
-        console.log(this.connections[id]);
-
-        return offer;
+            console.log(`${id}: Setting local description`);
+            await this.connections[id].setLocalDescription(offer);
+            console.log(`${id}: Offer created and set.`);
+            return offer;
+        } catch (error) {
+            console.error(`${id}: Error creating or setting offer:`, error);
+            throw error;
+        }
     }
 
     async createAndSetAnswer(id: string): Promise<RTCSessionDescriptionInit> {
@@ -61,15 +141,15 @@ export class WebRTCService {
         );
     }
 
-    async addIceCandidates({
+    sendMessage({
         id,
-        candidates
+        message
+        // eventHandlers: EventHandlers
     }: {
         id: string;
-        candidates: RTCIceCandidateInit[];
+        message: string;
+        // eventHandlers: EventHandlers
     }) {
-        for (const candidate of candidates) {
-            await this.connections[id].addIceCandidate(candidate);
-        }
+        this.dataChannels[id].send(message);
     }
 }

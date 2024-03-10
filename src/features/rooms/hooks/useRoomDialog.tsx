@@ -1,5 +1,5 @@
 // import { QueryStatus } from "@reduxjs/toolkit/query";
-import { useState, ChangeEvent, FormEvent, useEffect, useMemo } from "react";
+import { useState, ChangeEvent, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router";
 
 import { useAppDispatch } from "app/hooks/storeHooks";
@@ -37,9 +37,9 @@ export const useRoomDialog = (onClose: () => void) => {
     const [{ name, description, answer }, setInputValues] =
         useState(initialValues);
 
-    useEffect(() => {
-        console.log(state);
-    }, [state]);
+    // useEffect(() => {
+    //     console.log(state);
+    // }, [state]);
 
     useEffect(() => {
         if (!name && !description && !answer) {
@@ -68,53 +68,59 @@ export const useRoomDialog = (onClose: () => void) => {
             });
         };
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
+    const handleSubmit = async () => {
+        let result;
         switch (state) {
             case DialogStates.ADDING:
                 setState(DialogStates.ANSWER);
-                try {
-                    webRTCService.createConnection(roomId);
+                webRTCService.createConnection(roomId);
 
-                    const result =
-                        await webRTCService.createAndSetOffer(roomId);
+                webRTCService.createDataChannel({
+                    id: roomId,
+                    label: "chat"
+                });
 
-                    //TODO: Remove
-                    console.log(JSON.stringify(result));
-                } catch (error) {
-                    console.error(`Error: RTC initialization failed. ${error}`);
-                }
+                result = await webRTCService.createAndSetOffer(roomId);
+
+                //TODO: Remove
+                console.log("OFFER");
+                console.log(JSON.stringify(result));
 
                 break;
             case DialogStates.ANSWER:
-                try {
-                    await webRTCService.setRemoteDescription({
-                        id: roomId,
-                        sessionDescription: answer
-                    });
+                await webRTCService.setRemoteDescription({
+                    id: roomId,
+                    sessionDescription: answer
+                });
 
-                    dispatch(roomAdded({ id: roomId, name }));
+                dispatch(roomAdded({ id: roomId, name }));
 
-                    setInputValues(initialValues);
-                    onClose();
+                setInputValues(initialValues);
+                onClose();
 
-                    navigate(`/rooms/${roomId}`);
-                } catch (error) {
-                    console.error(`Error: RTC initialization failed. ${error}`);
-                }
-
+                navigate(`/rooms/${roomId}`);
                 break;
+            //TODO: Rework by DRY
             case DialogStates.JOINING:
                 try {
                     webRTCService.createConnection(roomId);
+
+                    //ADD ICE CANDIDATES
 
                     await webRTCService.setRemoteDescription({
                         id: roomId,
                         sessionDescription: description
                     });
 
-                    await webRTCService.createAndSetAnswer(roomId);
+                    webRTCService.createDataChannel({
+                        id: roomId,
+                        label: "chat"
+                    });
+
+                    result = await webRTCService.createAndSetAnswer(roomId);
+
+                    console.log("ANSWER");
+                    console.log(JSON.stringify(result));
 
                     dispatch(roomAdded({ id: roomId, name }));
 

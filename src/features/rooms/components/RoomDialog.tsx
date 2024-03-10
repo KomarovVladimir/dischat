@@ -1,4 +1,4 @@
-import { Dialog, Button, DialogActions, Box } from "@mui/material";
+import { Dialog, Button, DialogActions } from "@mui/material";
 
 import { Paper } from "components";
 
@@ -25,23 +25,21 @@ export const RoomDialog = ({ open, onClose }: CreationDialogProps) => {
 
     return (
         <Dialog onClose={handleClose} PaperComponent={Paper} {...{ open }}>
-            <Box component="form" onSubmit={handleSubmit}>
-                <RoomDialogContent
-                    {...{
-                        name,
-                        state,
-                        answer,
-                        description,
-                        handleChange
-                    }}
-                />
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button disabled={!name && !description} type="submit">
-                        Submit
-                    </Button>
-                </DialogActions>
-            </Box>
+            <RoomDialogContent
+                {...{
+                    name,
+                    state,
+                    answer,
+                    description,
+                    handleChange
+                }}
+            />
+            <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button disabled={!name && !description} onClick={handleSubmit}>
+                    Submit
+                </Button>
+            </DialogActions>
         </Dialog>
     );
 };
