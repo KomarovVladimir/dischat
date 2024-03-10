@@ -5,10 +5,7 @@ export class WebRTCService {
     createConnection(id: string) {
         if (!this.connections[id]) {
             console.log(`${id}: Creating connection`);
-
             this.connections[id] = new RTCPeerConnection();
-
-            console.log(`${id}: Connection created`);
 
             this.connections[id].onicecandidate = ({ candidate }) => {
                 if (candidate) {
@@ -16,24 +13,6 @@ export class WebRTCService {
                 } else {
                     console.log("ICE gathering complete");
                 }
-            };
-
-            this.connections[id].onicegatheringstatechange = (event) => {
-                if (this.connections[id].iceGatheringState === "complete") {
-                    console.log(`${id}: Ice gathering complete`);
-                }
-            };
-
-            this.connections[id].oniceconnectionstatechange = (event) => {
-                console.log(
-                    `${id}: ICE connection state: ${this.connections[id].iceConnectionState}`
-                );
-            };
-
-            this.connections[id].onsignalingstatechange = (event) => {
-                console.log(
-                    `${id}: Signaling state: ${this.connections[id].signalingState}`
-                );
             };
         }
 
@@ -105,15 +84,33 @@ export class WebRTCService {
         }
     }
 
+    async waitForIceGatheringComplete(id: string) {
+        return new Promise<RTCSessionDescription | null>((resolve) => {
+            const checkIceState = () => {
+                if (this.connections[id].iceGatheringState === "complete") {
+                    console.log(`${id}: Ice gathering complete`);
+                    resolve(this.connections[id].localDescription);
+                } else {
+                    setTimeout(checkIceState, 100);
+                }
+            };
+
+            checkIceState();
+        });
+    }
+
     async createAndSetOffer(id: string) {
         try {
             console.log(`${id}: Creating offer`);
-            const offer = await this.connections[id].createOffer();
-            console.log(`${id}: Offer created`);
+            const offerInit = await this.connections[id].createOffer();
 
             console.log(`${id}: Setting local description`);
-            await this.connections[id].setLocalDescription(offer);
+            await this.connections[id].setLocalDescription(offerInit);
             console.log(`${id}: Offer created and set.`);
+
+            console.log(`${id}: Waiting for ICE candidates`);
+            const offer = await this.waitForIceGatheringComplete(id);
+
             return offer;
         } catch (error) {
             console.error(`${id}: Error creating or setting offer:`, error);
@@ -121,9 +118,16 @@ export class WebRTCService {
         }
     }
 
-    async createAndSetAnswer(id: string): Promise<RTCSessionDescriptionInit> {
-        const answer = await this.connections[id].createAnswer();
-        await this.connections[id].setLocalDescription(answer);
+    async createAndSetAnswer(id: string) {
+        console.log(`${id}: Creating answer`);
+        const answerInit = await this.connections[id].createAnswer();
+
+        console.log(`${id}: Setting local description`);
+        await this.connections[id].setLocalDescription(answerInit);
+        console.log(`${id}: Offer created and set.`);
+
+        console.log(`${id}: Waiting for ICE candidates`);
+        const answer = await this.waitForIceGatheringComplete(id);
 
         return answer;
     }
@@ -141,15 +145,7 @@ export class WebRTCService {
         );
     }
 
-    sendMessage({
-        id,
-        message
-        // eventHandlers: EventHandlers
-    }: {
-        id: string;
-        message: string;
-        // eventHandlers: EventHandlers
-    }) {
+    sendMessage({ id, message }: { id: string; message: string }) {
         this.dataChannels[id].send(message);
     }
 }
