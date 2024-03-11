@@ -1,6 +1,14 @@
+import { AppDispatch } from "app/store/store";
+import { messageAdded } from "features/chat/slice/messagesSlice";
+
 export class WebRTCService {
     private connections: Record<string, RTCPeerConnection> = {};
     private dataChannels: Record<string, RTCDataChannel> = {};
+    private dispatch: AppDispatch | null = null;
+
+    setDispatch(dispatch: AppDispatch) {
+        this.dispatch = dispatch;
+    }
 
     createConnection(id: string) {
         if (!this.connections[id]) {
@@ -21,6 +29,11 @@ export class WebRTCService {
                 };
 
                 channel.onmessage = (event) => {
+                    if (this.dispatch) {
+                        this.dispatch(
+                            messageAdded({ roomId: id, text: event.data })
+                        );
+                    }
                     console.log(event.data);
                 };
             };

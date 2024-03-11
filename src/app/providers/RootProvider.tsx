@@ -6,11 +6,11 @@ import { ThemeProvider } from "./ThemeProvider";
 
 export const RootProvider = ({ children }: PropsWithChildren) => (
     <ThemeProvider>
-        <WebRTCProvider>
-            <StoreProvider>
+        <StoreProvider>
+            <WebRTCProvider>
                 <CssBaseline />
                 {children}
-            </StoreProvider>
-        </WebRTCProvider>
+            </WebRTCProvider>
+        </StoreProvider>
     </ThemeProvider>
 );
