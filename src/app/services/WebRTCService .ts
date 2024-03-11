@@ -14,6 +14,16 @@ export class WebRTCService {
                     console.log("ICE gathering complete");
                 }
             };
+
+            this.connections[id].ondatachannel = ({ channel }) => {
+                channel.onopen = () => {
+                    channel.send("Data channel opened");
+                };
+
+                channel.onmessage = (event) => {
+                    console.log(event.data);
+                };
+            };
         }
 
         return this.connections[id];
@@ -30,14 +40,13 @@ export class WebRTCService {
 
         this.dataChannels[id].onmessage = (event) => {
             const message = event.data;
+
             console.log(message);
         };
 
         this.dataChannels[id].onclose = () => {
             console.log("Data channel closed");
         };
-
-        console.log(this.dataChannels, this.dataChannels[id].onopen);
     }
 
     async addIceCandidates({
@@ -146,6 +155,8 @@ export class WebRTCService {
     }
 
     sendMessage({ id, message }: { id: string; message: string }) {
+        console.log(this.dataChannels[id]);
+
         this.dataChannels[id].send(message);
     }
 }
