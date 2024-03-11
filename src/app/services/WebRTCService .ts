@@ -155,8 +155,6 @@ export class WebRTCService {
     }
 
     sendMessage({ id, message }: { id: string; message: string }) {
-        console.log(this.dataChannels[id]);
-
         this.dataChannels[id].send(message);
     }
 }
