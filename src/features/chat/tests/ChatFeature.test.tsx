@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { fireEvent } from "@testing-library/react";
 import { Routes, Route, MemoryRouter } from "react-router";
 
@@ -8,9 +9,21 @@ import { routes } from "routing/routes";
 
 import { Chat } from "../components/Chat";
 import { messageAdded } from "../slice/messagesSlice";
-import { nanoid } from "@reduxjs/toolkit";
 
-window.HTMLElement.prototype.scrollIntoView = function () {};
+//TODO: Move the mocks
+jest.mock("app/hooks/useWebRTC", () => ({
+    __esModule: true,
+    useWebRTC: jest.fn(() => ({
+        sendMessage: jest.fn()
+    }))
+}));
+
+jest.mock("../hooks/useChat.tsx", () => ({
+    __esModule: true,
+    useChat: jest.fn(() => ({
+        endRef: jest.fn()
+    }))
+}));
 
 describe("Chat Feature", () => {
     test("Renders a chat with three messages", () => {
