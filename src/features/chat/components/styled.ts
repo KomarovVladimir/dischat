@@ -1,4 +1,4 @@
-import { List, ListItem, Paper, TextField, styled } from "@mui/material";
+import { List, Paper, TextField, styled } from "@mui/material";
 
 //TODO: Create common components
 export const Input = styled(TextField)({
@@ -33,13 +33,7 @@ export const ChatPaper = styled(Paper)({
     backdropFilter: "blur(8px)"
 });
 
-export const Message = styled(ListItem)({
-    alignItems: "start",
-    justifyContent: "start",
-    maxWidth: "80%"
-});
-
-export const MessageContent = styled("div")({
+export const MessagePaper = styled("div")({
     position: "relative",
     minWidth: 160,
     padding: ".5rem 1.5rem 1.25rem .75rem",

@@ -1,16 +1,9 @@
-import { Typography } from "@mui/material";
-import moment from "moment";
+import { ListItem } from "@mui/material";
 
-import {
-    ChatBox,
-    ChatPaper,
-    Message,
-    MessageContent,
-    MessageHeader
-} from "../styled";
+import { ChatBox, ChatPaper } from "../styled";
 import { ChatInput } from "../ChatInput/ChatInput";
-
 import { useChat } from "../../hooks/useChat";
+import { Message } from "../Message";
 
 //TODO: Add avatars
 //TODO: Create a message component
@@ -22,29 +15,9 @@ export const Chat = () => {
         <ChatPaper>
             <ChatBox dense disablePadding>
                 {messages?.map(({ id, userName, timestamp: date, text }) => (
-                    <Message key={id} dense disablePadding>
-                        <MessageContent>
-                            <MessageHeader>
-                                <Typography
-                                    color="primary"
-                                    fontWeight="600"
-                                    fontSize="small"
-                                >
-                                    {userName}
-                                </Typography>
-                                <Typography
-                                    color="primary"
-                                    fontSize=".75rem"
-                                    position={"absolute"}
-                                    right=".75rem"
-                                    bottom=".25rem"
-                                >
-                                    {moment(date).format("h:mm a")}
-                                </Typography>
-                            </MessageHeader>
-                            <Typography>{text}</Typography>
-                        </MessageContent>
-                    </Message>
+                    <ListItem key={id} dense disablePadding>
+                        <Message {...{ text, userName, date }} />
+                    </ListItem>
                 ))}
                 <div ref={endRef} />
             </ChatBox>
