@@ -5,9 +5,6 @@ import { ChatInput } from "../ChatInput/ChatInput";
 import { useChat } from "../../hooks/useChat";
 import { Message } from "../Message";
 
-//TODO: Add avatars
-//TODO: Create a message component
-//TODO: Remove the offer text
 export const Chat = () => {
     const { messages, endRef } = useChat();
 
