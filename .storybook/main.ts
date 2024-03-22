@@ -21,6 +21,15 @@ const config: StorybookConfig = {
     docs: {
         autodocs: "tag"
     },
+    swc: () => ({
+        jsc: {
+            transform: {
+                react: {
+                    runtime: "automatic"
+                }
+            }
+        }
+    }),
     async webpackFinal(config, { configType }) {
         if (config?.resolve?.alias) {
             config.resolve.alias = {
