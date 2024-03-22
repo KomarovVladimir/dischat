@@ -23,7 +23,7 @@ export const setupStore = (preloadedState?: Partial<AppState>) => {
 export const store = setupStore({
     rooms: {
         entities: {
-            "123": { id: "123", name: "Test", messageIds: ["1", "2", "3"] }
+            "123": { id: "123", name: "Test", messageIds: ["1", "2", "3", "4"] }
         },
         ids: ["123"]
     },
@@ -43,12 +43,19 @@ export const store = setupStore({
             },
             "3": {
                 id: "3",
+                userName: "User Name",
                 text: "Text Message",
+                roomId: "123",
+                timestamp: new Date().toISOString()
+            },
+            "4": {
+                id: "3",
+                text: "Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message ",
                 roomId: "123",
                 timestamp: new Date().toISOString()
             }
         },
-        ids: ["1", "2", "3"]
+        ids: ["1", "2", "3", "4"]
     }
 });
 

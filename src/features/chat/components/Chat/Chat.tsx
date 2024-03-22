@@ -1,5 +1,3 @@
-import { ListItem } from "@mui/material";
-
 import { ChatBox, ChatPaper } from "../styled";
 import { ChatInput } from "../ChatInput/ChatInput";
 import { useChat } from "../../hooks/useChat";
@@ -12,9 +10,7 @@ export const Chat = () => {
         <ChatPaper>
             <ChatBox dense disablePadding>
                 {messages?.map(({ id, userName, timestamp: date, text }) => (
-                    <ListItem key={id} dense disablePadding>
-                        <Message {...{ text, userName, date }} />
-                    </ListItem>
+                    <Message key={id} {...{ text, userName, date }} />
                 ))}
                 <div ref={endRef} />
             </ChatBox>
