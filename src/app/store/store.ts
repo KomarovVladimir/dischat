@@ -49,7 +49,7 @@ export const store = setupStore({
                 timestamp: new Date().toISOString()
             },
             "4": {
-                id: "3",
+                id: "4",
                 text: "Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message ",
                 roomId: "123",
                 timestamp: new Date().toISOString()

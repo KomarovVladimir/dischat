@@ -38,13 +38,14 @@ export const MessageItem = styled(ListItem)(({ theme }) => ({
     justifyContent: "start",
     flexDirection: "column",
     width: "auto",
-    maxWidth: "80%",
+    maxWidth: "40%",
     minWidth: 160,
     padding: ".5rem 1.5rem 1.25rem .75rem",
     borderRadius: "0 8px 8px 8px",
     color: theme.palette.text.primary,
     background: "rgba(203, 227, 255, 0.10)",
-    overflowWrap: "anywhere"
+    overflowWrap: "anywhere",
+    cursor: "pointer"
 }));
 
 export const MessageHeader = styled("div")({
