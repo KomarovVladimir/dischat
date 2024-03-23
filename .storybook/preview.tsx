@@ -1,6 +1,10 @@
 import { Preview } from "@storybook/react";
 import { withThemeFromJSXProvider } from "@storybook/addon-themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import {
+    reactRouterParameters,
+    withRouter
+} from "storybook-addon-remix-react-router";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -28,6 +32,7 @@ const preview: Preview = {
         }
     },
     decorators: [
+        withRouter,
         withThemeFromJSXProvider({
             themes: {
                 light: lightTheme,
