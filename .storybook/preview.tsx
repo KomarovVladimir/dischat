@@ -1,10 +1,7 @@
 import { Preview } from "@storybook/react";
 import { withThemeFromJSXProvider } from "@storybook/addon-themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import {
-    reactRouterParameters,
-    withRouter
-} from "storybook-addon-remix-react-router";
+import { withRouter } from "storybook-addon-remix-react-router";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -12,6 +9,8 @@ import "@fontsource/roboto/700.css";
 import "@fontsource/material-icons";
 import { darkTheme } from "../src/themes/darkTheme";
 import { lightTheme } from "../src/themes/lightTheme";
+import { store } from "../src/app/store/store";
+import { Provider } from "react-redux";
 
 const preview: Preview = {
     parameters: {
@@ -41,7 +40,8 @@ const preview: Preview = {
             defaultTheme: "dark",
             Provider: ThemeProvider,
             GlobalStyles: CssBaseline
-        })
+        }),
+        (story) => <Provider {...{ store }}>{story()}</Provider>
     ]
 };
 export default preview;
