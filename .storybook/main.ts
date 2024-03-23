@@ -6,16 +6,18 @@ const config: StorybookConfig = {
     addons: [
         "storybook-addon-react-router-v6",
         "@storybook/addon-links",
+        "@storybook/addon-backgrounds",
         "@storybook/addon-essentials",
+        "@storybook/addon-themes",
         "@storybook/addon-onboarding",
-        "@storybook/addon-interactions"
+        "@storybook/addon-interactions",
+        "@storybook/addon-mdx-gfm",
+        "@storybook/addon-webpack5-compiler-swc"
     ],
     framework: {
         name: "@storybook/react-webpack5",
         options: {
-            builder: {
-                useSWC: true
-            }
+            builder: {}
         }
     },
     docs: {

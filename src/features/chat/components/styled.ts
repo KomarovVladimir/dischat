@@ -33,7 +33,7 @@ export const ChatPaper = styled(Paper)({
     backdropFilter: "blur(8px)"
 });
 
-export const MessageItem = styled(ListItem)({
+export const MessageItem = styled(ListItem)(({ theme }) => ({
     alignItems: "start",
     justifyContent: "start",
     flexDirection: "column",
@@ -42,9 +42,10 @@ export const MessageItem = styled(ListItem)({
     minWidth: 160,
     padding: ".5rem 1.5rem 1.25rem .75rem",
     borderRadius: "0 8px 8px 8px",
+    color: theme.palette.text.primary,
     background: "rgba(203, 227, 255, 0.10)",
     overflowWrap: "anywhere"
-});
+}));
 
 export const MessageHeader = styled("div")({
     display: "flex",
