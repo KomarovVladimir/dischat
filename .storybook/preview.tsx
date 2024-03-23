@@ -6,7 +6,8 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "@fontsource/material-icons";
-import { lightTheme, darkTheme } from "../src/themes/darkTheme";
+import { darkTheme } from "../src/themes/darkTheme";
+import { lightTheme } from "../src/themes/lightTheme";
 
 const preview: Preview = {
     parameters: {
