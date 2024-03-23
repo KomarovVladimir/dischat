@@ -6,7 +6,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "@fontsource/material-icons";
-import { darkTheme } from "../src/themes/darkTheme";
+import { lightTheme, darkTheme } from "../src/themes/darkTheme";
 
 const preview: Preview = {
     parameters: {
@@ -26,21 +26,10 @@ const preview: Preview = {
             ]
         }
     },
-    globalTypes: {
-        theme: {
-            description: "Global theme for components",
-            defaultValue: "dark",
-            toolbar: {
-                title: "Theme",
-                icon: "circlehollow",
-                items: ["light", "dark"],
-                dynamicTitle: true
-            }
-        }
-    },
     decorators: [
         withThemeFromJSXProvider({
             themes: {
+                light: lightTheme,
                 dark: darkTheme
             },
             defaultTheme: "dark",
