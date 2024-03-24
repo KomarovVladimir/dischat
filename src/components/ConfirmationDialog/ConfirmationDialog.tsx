@@ -4,7 +4,7 @@ type ConfirmationDialogProps = {
     open: boolean;
     title: string;
     onConfirm?: () => void;
-    onCancel?: () => void;
+    onCancel: () => void;
 };
 
 export const ConfirmationDialog = ({
@@ -13,7 +13,7 @@ export const ConfirmationDialog = ({
     onConfirm,
     onCancel
 }: ConfirmationDialogProps) => (
-    <Dialog {...{ open }}>
+    <Dialog onClose={onCancel} {...{ open }}>
         <DialogTitle>{title}</DialogTitle>
         <DialogActions>
             <Button autoFocus onClick={onCancel}>
