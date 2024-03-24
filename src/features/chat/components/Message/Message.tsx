@@ -1,8 +1,9 @@
-import { ClickAwayListener, Popper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import moment from "moment";
 
 import { MessageItem, MessageHeader } from "../styled";
 import { MouseEvent, useState } from "react";
+import { PopperMenu } from "../PopperMenu";
 
 type MessageProps = {
     text: string;
@@ -16,7 +17,7 @@ type MessageProps = {
 export const Message = ({ text, userName, date }: MessageProps) => {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
+    const handleOpen = (event: MouseEvent<HTMLElement>) => {
         console.log(anchorEl, event.currentTarget);
 
         setAnchorEl(event.currentTarget);
@@ -26,36 +27,30 @@ export const Message = ({ text, userName, date }: MessageProps) => {
         setAnchorEl(null);
     };
 
-    const open = Boolean(anchorEl);
-
     return (
         <>
-            <Popper open={open} anchorEl={anchorEl} placement="right-start">
-                The content of the Popover.
-            </Popper>
-            <ClickAwayListener onClickAway={handleClose}>
-                <MessageItem onClick={handleClick}>
-                    <MessageHeader>
-                        <Typography
-                            color="primary"
-                            fontWeight="600"
-                            fontSize="small"
-                        >
-                            {userName}
-                        </Typography>
-                    </MessageHeader>
-                    <Typography>{text}</Typography>
+            <PopperMenu {...{ anchorEl, handleClose }} />
+            <MessageItem onClick={handleOpen}>
+                <MessageHeader>
                     <Typography
                         color="primary"
-                        fontSize=".75rem"
-                        position={"absolute"}
-                        right=".75rem"
-                        bottom=".25rem"
+                        fontWeight="600"
+                        fontSize="small"
                     >
-                        {moment(date).format("h:mm a")}
+                        {userName}
                     </Typography>
-                </MessageItem>
-            </ClickAwayListener>
+                </MessageHeader>
+                <Typography>{text}</Typography>
+                <Typography
+                    color="primary"
+                    fontSize=".75rem"
+                    position={"absolute"}
+                    right=".75rem"
+                    bottom=".25rem"
+                >
+                    {moment(date).format("h:mm a")}
+                </Typography>
+            </MessageItem>
         </>
     );
 };
