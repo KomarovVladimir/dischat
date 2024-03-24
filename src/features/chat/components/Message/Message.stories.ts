@@ -24,6 +24,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const WithUserName: Story = {
     args: {
+        id: 1,
+        roomId: 1,
         userName: "User Name",
         text: "A message",
         date: new Date().toISOString()

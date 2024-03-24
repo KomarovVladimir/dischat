@@ -9,9 +9,14 @@ export const Chat = () => {
     return (
         <ChatPaper>
             <ChatBox dense disablePadding>
-                {messages?.map(({ id, userName, timestamp: date, text }) => (
-                    <Message key={id} {...{ text, userName, date }} />
-                ))}
+                {messages?.map(
+                    ({ id, roomId, userName, timestamp: date, text }) => (
+                        <Message
+                            key={id}
+                            {...{ id, roomId, text, userName, date }}
+                        />
+                    )
+                )}
                 <div ref={endRef} />
             </ChatBox>
             <ChatInput />
