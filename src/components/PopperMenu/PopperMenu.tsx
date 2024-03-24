@@ -8,10 +8,18 @@ import {
 
 type PopperMenuProps = {
     anchorEl: HTMLElement | null;
+    menuItems: {
+        text: string;
+        handler: () => void;
+    }[];
     handleClose: () => void;
 };
 
-export const PopperMenu = ({ anchorEl, handleClose }: PopperMenuProps) => {
+export const PopperMenu = ({
+    anchorEl,
+    menuItems,
+    handleClose
+}: PopperMenuProps) => {
     const open = Boolean(anchorEl);
 
     return (
@@ -19,13 +27,12 @@ export const PopperMenu = ({ anchorEl, handleClose }: PopperMenuProps) => {
             <Popper placement="right-start" {...{ anchorEl, open }}>
                 <Paper>
                     <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList
-                            id="composition-menu"
-                            aria-labelledby="composition-button"
-                        >
-                            <MenuItem onClick={handleClose}>Edit</MenuItem>
-                            <MenuItem onClick={handleClose}>Copy</MenuItem>
-                            <MenuItem onClick={handleClose}>Delete</MenuItem>
+                        <MenuList>
+                            {menuItems.map(({ text, handler }, index) => (
+                                <MenuItem key={index} onClick={handler}>
+                                    {text}
+                                </MenuItem>
+                            ))}
                         </MenuList>
                     </ClickAwayListener>
                 </Paper>

@@ -1,9 +1,8 @@
 import { Typography } from "@mui/material";
 import moment from "moment";
-
-import { MessageItem, MessageHeader } from "../styled";
 import { MouseEvent, useState } from "react";
-import { PopperMenu } from "../PopperMenu";
+import { MessageItem, MessageHeader } from "../styled";
+import { MessageMenu } from "../MessageMenu";
 
 type MessageProps = {
     text: string;
@@ -29,7 +28,7 @@ export const Message = ({ text, userName, date }: MessageProps) => {
 
     return (
         <>
-            <PopperMenu {...{ anchorEl, handleClose }} />
+            <MessageMenu {...{ anchorEl, handleClose }} />
             <MessageItem onClick={handleOpen}>
                 <MessageHeader>
                     <Typography
