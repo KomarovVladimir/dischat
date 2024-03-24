@@ -2,8 +2,6 @@ import { EntityId } from "@reduxjs/toolkit";
 import { Typography } from "@mui/material";
 import moment from "moment";
 import { MouseEvent, useState } from "react";
-import { useAppDispatch } from "app/hooks/storeHooks";
-import { messageRemoved } from "features/chat/slice/messagesSlice";
 import { MessageItem, MessageHeader } from "../styled";
 import { MessageMenu } from "../MessageMenu";
 
@@ -19,7 +17,6 @@ type MessageProps = {
 //TODO: useMessage
 //TODO: Create a popper menu
 export const Message = ({ id, roomId, text, userName, date }: MessageProps) => {
-    const dispatch = useAppDispatch();
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleOpen = (event: MouseEvent<HTMLElement>) => {
@@ -30,13 +27,9 @@ export const Message = ({ id, roomId, text, userName, date }: MessageProps) => {
         setAnchorEl(null);
     };
 
-    const handleDelete = () => {
-        dispatch(messageRemoved({ id, roomId }));
-    };
-
     return (
         <>
-            <MessageMenu {...{ anchorEl, handleClose, handleDelete }} />
+            <MessageMenu onClose={handleClose} {...{ anchorEl, id, roomId }} />
             <MessageItem onClick={handleOpen}>
                 <MessageHeader>
                     <Typography

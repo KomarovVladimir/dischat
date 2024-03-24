@@ -12,13 +12,13 @@ type PopperMenuProps = {
         text: string;
         handler: () => void;
     }[];
-    handleClose: () => void;
+    onClose: () => void;
 };
 
 export const PopperMenu = ({
     anchorEl,
     menuItems,
-    handleClose
+    onClose
 }: PopperMenuProps) => {
     const open = Boolean(anchorEl);
 
@@ -26,7 +26,7 @@ export const PopperMenu = ({
         <>
             <Popper placement="right-start" {...{ anchorEl, open }}>
                 <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
+                    <ClickAwayListener onClickAway={onClose}>
                         <MenuList>
                             {menuItems.map(({ text, handler }, index) => (
                                 <MenuItem key={index} onClick={handler}>
