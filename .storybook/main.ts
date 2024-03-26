@@ -4,23 +4,34 @@ import path from "path";
 const config: StorybookConfig = {
     stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
     addons: [
-        "storybook-addon-react-router-v6",
+        "storybook-addon-remix-react-router",
         "@storybook/addon-links",
+        "@storybook/addon-backgrounds",
         "@storybook/addon-essentials",
+        "@storybook/addon-themes",
         "@storybook/addon-onboarding",
-        "@storybook/addon-interactions"
+        "@storybook/addon-interactions",
+        "@storybook/addon-mdx-gfm",
+        "@storybook/addon-webpack5-compiler-swc"
     ],
     framework: {
         name: "@storybook/react-webpack5",
         options: {
-            builder: {
-                useSWC: true
-            }
+            builder: {}
         }
     },
     docs: {
         autodocs: "tag"
     },
+    swc: () => ({
+        jsc: {
+            transform: {
+                react: {
+                    runtime: "automatic"
+                }
+            }
+        }
+    }),
     async webpackFinal(config, { configType }) {
         if (config?.resolve?.alias) {
             config.resolve.alias = {

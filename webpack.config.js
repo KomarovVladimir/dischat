@@ -5,6 +5,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = (env, argv) => {
+    const isProduction = env.production;
+    const publicPath = isProduction ? "/dischat/" : "/";
+
     return {
         entry: path.resolve(__dirname, "src/index.tsx"),
         mode: env.production ? "production" : "development",
@@ -12,7 +15,7 @@ module.exports = (env, argv) => {
         output: {
             filename: "bundle.js",
             path: path.resolve(__dirname, "dist"),
-            publicPath: "/"
+            publicPath
         },
         module: {
             rules: [
@@ -33,7 +36,8 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, "public/index.html")
+                template: path.resolve(__dirname, "public/index.html"),
+                publicPath
             }),
             new CopyWebpackPlugin({
                 patterns: [

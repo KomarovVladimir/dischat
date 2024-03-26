@@ -6,7 +6,10 @@ import {
     current
 } from "@reduxjs/toolkit";
 
-import { messageAdded } from "features/chat/slice/messagesSlice";
+import {
+    messageAdded,
+    messageRemoved
+} from "features/chat/slice/messagesSlice";
 
 export type RoomEntity = {
     id: EntityId;
@@ -47,6 +50,25 @@ export const roomsSlice = createSlice({
                 });
             }
         });
+        builder.addCase(
+            messageRemoved,
+            (state, { payload: { roomId, id } }) => {
+                const room = current(state.ids).includes(roomId);
+
+                const { messageIds } = current(state.entities[roomId]);
+
+                if (room) {
+                    roomsAdapter.updateOne(state, {
+                        id: roomId,
+                        changes: {
+                            messageIds: messageIds.filter(
+                                (messageId) => id !== messageId
+                            )
+                        }
+                    });
+                }
+            }
+        );
     }
 });
 

@@ -20,7 +20,44 @@ export const setupStore = (preloadedState?: Partial<AppState>) => {
     });
 };
 
-export const store = setupStore();
+export const store = setupStore({
+    rooms: {
+        entities: {
+            "123": { id: "123", name: "Test", messageIds: ["1", "2", "3", "4"] }
+        },
+        ids: ["123"]
+    },
+    messages: {
+        entities: {
+            "1": {
+                id: "1",
+                text: "Text Message",
+                roomId: "123",
+                timestamp: new Date().toISOString()
+            },
+            "2": {
+                id: "2",
+                text: "Text Message",
+                roomId: "123",
+                timestamp: new Date().toISOString()
+            },
+            "3": {
+                id: "3",
+                userName: "User Name",
+                text: "Text Message",
+                roomId: "123",
+                timestamp: new Date().toISOString()
+            },
+            "4": {
+                id: "4",
+                text: "Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message Text Message ",
+                roomId: "123",
+                timestamp: new Date().toISOString()
+            }
+        },
+        ids: ["1", "2", "3", "4"]
+    }
+});
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;

@@ -1,50 +1,33 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button } from "./Button";
+import { Message } from "./Message";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: "Example/Button",
-    component: Button,
+    title: "Example/Message",
+    component: Message,
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-        layout: "centered"
+        layout: "centered",
+        backgrounds: {
+            default: "dark"
+        }
     },
     // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-    tags: ["autodocs"],
+    tags: ["autodocs"]
     // More on argTypes: https://storybook.js.org/docs/api/argtypes
-    argTypes: {
-        backgroundColor: { control: "color" }
-    }
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Message>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
+export const WithUserName: Story = {
     args: {
-        primary: true,
-        label: "Button"
-    }
-};
-
-export const Secondary: Story = {
-    args: {
-        label: "Button"
-    }
-};
-
-export const Large: Story = {
-    args: {
-        size: "large",
-        label: "Button"
-    }
-};
-
-export const Small: Story = {
-    args: {
-        size: "small",
-        label: "Button"
+        id: 1,
+        roomId: 1,
+        userName: "User Name",
+        text: "A message",
+        date: new Date().toISOString()
     }
 };

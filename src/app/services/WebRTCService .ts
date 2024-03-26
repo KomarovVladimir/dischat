@@ -168,6 +168,6 @@ export class WebRTCService {
     }
 
     sendMessage({ id, message }: { id: string; message: string }) {
-        this.dataChannels[id].send(message);
+        this.dataChannels[id]?.send(message);
     }
 }

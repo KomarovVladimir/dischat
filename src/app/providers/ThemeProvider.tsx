@@ -1,12 +1,7 @@
-import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material";
 import { PropsWithChildren } from "react";
-
-export const theme = createTheme({
-    palette: {
-        mode: "dark"
-    }
-});
+import { darkTheme } from "themes/darkTheme";
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => (
-    <MuiThemeProvider {...{ theme }}>{children}</MuiThemeProvider>
+    <MuiThemeProvider {...{ theme: darkTheme }}>{children}</MuiThemeProvider>
 );

@@ -26,7 +26,11 @@ export const useChatInput = () => {
                 })
             );
 
-            webRTCService.sendMessage({ id: roomId, message: text });
+            try {
+                webRTCService.sendMessage({ id: roomId, message: text });
+            } catch (error) {
+                console.error(error);
+            }
 
             setText("");
         }

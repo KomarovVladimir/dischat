@@ -34,7 +34,14 @@ export const messagesSlice = createSlice({
                 }
             })
         },
-        messageRemoved: messageAdapter.removeOne
+        messageRemoved: (
+            state,
+            {
+                payload: { id }
+            }: { payload: Pick<MessageEntity, "id" | "roomId"> }
+        ) => {
+            messageAdapter.removeOne(state, id);
+        }
     }
 });
 
