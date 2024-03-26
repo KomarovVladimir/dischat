@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = (env, argv) => {
-    const isProduction = argv.mode === "production";
+    const isProduction = env.production;
     const publicPath = isProduction ? "/dischat/" : "/";
 
     return {
