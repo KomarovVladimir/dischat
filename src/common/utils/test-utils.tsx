@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { ReactElement, PropsWithChildren } from "react";
 
 import { setupStore, type AppStore, type AppState } from "app/store/store";
-import { theme } from "app/App";
+import { darkTheme } from "themes/darkTheme";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
     preloadedState?: Partial<AppState>;
@@ -22,7 +22,9 @@ export function renderWithProviders(
     const Wrapper = ({ children }: PropsWithChildren): JSX.Element => {
         return (
             <Provider {...{ store }}>
-                <ThemeProvider {...{ theme }}>{children}</ThemeProvider>
+                <ThemeProvider {...{ theme: darkTheme }}>
+                    {children}
+                </ThemeProvider>
             </Provider>
         );
     };

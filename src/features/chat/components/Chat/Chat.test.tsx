@@ -31,6 +31,10 @@ jest.mock("../../hooks/useChatInput.tsx", () => ({
     }))
 }));
 
+jest.mock("app/hooks/storeHooks", () => ({
+    useAppDispatch: jest.fn()
+}));
+
 describe("Chat component", () => {
     test("Renders messages correctly", () => {
         const { getByText } = render(<Chat />);

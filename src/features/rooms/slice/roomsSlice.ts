@@ -22,7 +22,6 @@ export type RoomAddedAction = PayloadAction<Omit<RoomEntity, "messageIds">>;
 
 export const roomsAdapter = createEntityAdapter<RoomEntity>();
 
-//TODO: Add an extra reducer for message ids
 export const roomsSlice = createSlice({
     name: "rooms",
     initialState: roomsAdapter.getInitialState(),
