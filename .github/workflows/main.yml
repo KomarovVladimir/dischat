@@ -17,7 +17,7 @@ jobs:
               run: npm install
 
             - name: Run Jest tests
-              run: npm test
+              run: npm run test
 
     deploy:
         name: Deploy to GHP
@@ -28,4 +28,4 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Run Jest tests
-              run: npm deploy
+              run: npm run deploy
