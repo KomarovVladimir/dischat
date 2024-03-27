@@ -42,7 +42,6 @@
         "@types/case-sensitive-paths-webpack-plugin": "^2",
         "@types/fs-extra": "^11",
         "@types/gh-pages": "^6",
-        "@types/history": "^5.0.0",
         "@types/jest": "^29.5.12",
         "@types/node": "^20.11.30",
         "@types/react": "^18.2.72",

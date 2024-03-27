@@ -18,19 +18,21 @@ jest.mock("app/hooks/useWebRTC", () => ({
     }))
 }));
 
-jest.mock("../hooks/useChat.tsx", () => ({
-    __esModule: true,
-    useChat: jest.fn(() => ({
-        endRef: jest.fn()
-    }))
-}));
+jest.mock("../hooks/useChat.tsx", () => {
+    const originalModule = jest.requireActual("../hooks/useChat.tsx");
+    return {
+        useChat: jest.fn(() => ({
+            ...originalModule.useChat(),
+            endRef: jest.fn()
+        }))
+    };
+});
 
 describe("Chat Feature", () => {
     test("Renders a chat with three messages", () => {
         const store = setupStore();
-        const {
-            payload: { id: roomId }
-        } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
+        const roomId = nanoid();
+        store.dispatch(roomAdded({ id: roomId, name: "Room 1" }));
 
         store.dispatch(messageAdded({ text: "Message 1", roomId }));
         store.dispatch(
@@ -55,9 +57,8 @@ describe("Chat Feature", () => {
 
     test("Adds a message to a chat", () => {
         const store = setupStore();
-        const {
-            payload: { id: roomId }
-        } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
+        const roomId = nanoid();
+        store.dispatch(roomAdded({ id: roomId, name: "Room 1" }));
 
         const { getByText, getByPlaceholderText } = renderWithProviders(
             <MemoryRouter initialEntries={[`/rooms/${roomId}`]}>
