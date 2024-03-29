@@ -6,26 +6,38 @@ on:
             - main
 
 jobs:
-    test:
-        name: Run Jest tests
+    build:
+        name: Build
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install dependencies
               run: npm install
 
-            - name: Run Jest tests
-              run: npm test
+            - name: Build
+              run: npm run build
 
-    deploy:
-        name: Deploy to GHP
-        needs: test
+    test:
+        name: Run Jest tests
+        needs: build
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+            - name: Run tests
+              run: npm run test
 
-            - name: Run Jest tests
-              run: npm deploy
+    deploy:
+        name: Deploy to github pages
+        needs: test
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
