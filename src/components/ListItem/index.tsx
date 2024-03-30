@@ -1,4 +1,3 @@
-import { SvgIconComponent } from "@mui/icons-material";
 import {
     ListItem as MuiListItem,
     ListItemButton,
@@ -9,7 +8,7 @@ import {
 } from "@mui/material";
 import { ReactElement } from "react";
 
-type IconTypes = ReactElement<AvatarProps> | ReactElement<SvgIconComponent>;
+type IconTypes = ReactElement<AvatarProps>;
 
 type ListProps = {
     icon?: IconTypes;
