@@ -1,9 +1,10 @@
-name: Main Deployment
+name: Deployment
 
 on:
     push:
         branches:
             - main
+
     pull_request:
         branches:
             - main
@@ -11,12 +12,28 @@ on:
 jobs:
     test:
         name: Run Jest
+
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "npm"
+
+            - name: Cache NPM dependencies
+              uses: actions/cache@v4
+              id: node-modules
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
             - name: Install dependencies
+              if: steps.node-modules.outputs.cache-hit != 'true'
               run: npm ci
 
             - name: Run the tests
@@ -25,19 +42,19 @@ jobs:
     deploy:
         name: Deploy to github pages
         needs: test
+
         permissions:
             pages: write
             id-token: write
+
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
+
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
-
-            - name: Install dependencies
-              run: npm ci
 
             - name: Build
               run: npm run build-prod
