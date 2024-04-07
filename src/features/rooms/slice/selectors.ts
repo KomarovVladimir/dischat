@@ -9,6 +9,7 @@ export const roomsSelectors = roomsAdapter.getSelectors<AppState>(
     (state) => state.rooms
 );
 
+//TODO: Use createSelector
 export const getMessageIdsByRoomId = (id: EntityId) =>
     useAppSelector((state) => roomsSelectors.selectById(state, id)?.messageIds);
 
