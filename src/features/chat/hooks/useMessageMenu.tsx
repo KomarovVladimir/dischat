@@ -2,6 +2,7 @@ import { useAppDispatch } from "app/hooks/storeHooks";
 import { useState } from "react";
 import { messageRemoved } from "../slice/messagesSlice";
 import { type MessageMenuProps } from "../components/MessageMenu";
+import { getMessageById } from "../slice/selectors";
 
 type ConfirmationProps = {
     title: string;
@@ -11,9 +12,11 @@ type ConfirmationProps = {
 
 export const useMessageMenu = ({
     id,
-    roomId
-}: Pick<MessageMenuProps, "id" | "roomId">) => {
+    roomId,
+    onClose
+}: Pick<MessageMenuProps, "id" | "roomId" | "onClose">) => {
     const dispatch = useAppDispatch();
+    const { text } = getMessageById(id);
     const [open, setOpen] = useState(false);
     const [confirmation, setConfirmation] = useState<ConfirmationProps>({
         title: "",
@@ -37,5 +40,10 @@ export const useMessageMenu = ({
         handleConfirmationOpen("delete");
     };
 
-    return { open, confirmation, handleDelete };
+    const handleCopyToClipboard = () => {
+        onClose();
+        navigator.clipboard.writeText(text);
+    };
+
+    return { open, confirmation, handleDelete, handleCopyToClipboard };
 };

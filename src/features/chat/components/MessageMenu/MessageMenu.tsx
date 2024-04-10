@@ -17,7 +17,8 @@ export const MessageMenu = ({
     roomId,
     onClose
 }: MessageMenuProps) => {
-    const { open, confirmation, handleDelete } = useMessageMenu({ id, roomId });
+    const { open, confirmation, handleDelete, handleCopyToClipboard } =
+        useMessageMenu({ id, roomId, onClose });
 
     return (
         <>
@@ -33,7 +34,7 @@ export const MessageMenu = ({
                     onClose,
                     menuItems: [
                         { text: "Edit", handler: onClose },
-                        { text: "Copy", handler: onClose },
+                        { text: "Copy", handler: handleCopyToClipboard },
                         { text: "Delete", handler: handleDelete }
                     ]
                 }}
