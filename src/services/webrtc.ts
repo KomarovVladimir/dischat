@@ -1,63 +1,63 @@
 //TODO: Wrap into a class?
 export interface RTCEventHandlers {
-    onDataChannelClosed: () => void;
-    onDataChannelOpened: (dataChannel: RTCDataChannel) => void;
-    onIceCandidate: (candidate: RTCIceCandidate) => void;
-    onMessageReceived: (message: string) => void;
-    onRemoteStreamTrack: (track: MediaStreamTrack) => void;
+  onDataChannelClosed: () => void;
+  onDataChannelOpened: (dataChannel: RTCDataChannel) => void;
+  onIceCandidate: (candidate: RTCIceCandidate) => void;
+  onMessageReceived: (message: string) => void;
+  onRemoteStreamTrack: (track: MediaStreamTrack) => void;
 }
 
 export async function init() {
-    const connection = new RTCPeerConnection();
+  const connection = new RTCPeerConnection();
 
-    return connection;
+  return connection;
 }
 
 export async function createAndSetOffer(connection: RTCPeerConnection) {
-    const offer = await connection.createOffer();
-    await connection.setLocalDescription(offer);
+  const offer = await connection.createOffer();
+  await connection.setLocalDescription(offer);
 
-    return offer;
+  return offer;
 }
 
 export async function setRemoteDescription(
-    connection: RTCPeerConnection,
-    remoteDescription: RTCSessionDescriptionInit
+  connection: RTCPeerConnection,
+  remoteDescription: RTCSessionDescriptionInit
 ) {
-    connection.setRemoteDescription(remoteDescription);
+  connection.setRemoteDescription(remoteDescription);
 }
 
 export function setEventHandlers(
-    dataChannel: RTCDataChannel,
-    eventHandlers: RTCEventHandlers
+  dataChannel: RTCDataChannel,
+  eventHandlers: RTCEventHandlers
 ) {
-    dataChannel.onopen = () => {
-        eventHandlers.onDataChannelOpened(dataChannel);
-    };
+  dataChannel.onopen = () => {
+    eventHandlers.onDataChannelOpened(dataChannel);
+  };
 
-    dataChannel.onmessage = (event) => {
-        const message = event.data;
-        eventHandlers.onMessageReceived(message);
-    };
+  dataChannel.onmessage = (event) => {
+    const message = event.data;
+    eventHandlers.onMessageReceived(message);
+  };
 
-    dataChannel.onclose = () => {
-        eventHandlers.onDataChannelClosed();
-    };
+  dataChannel.onclose = () => {
+    eventHandlers.onDataChannelClosed();
+  };
 }
 
 export function createDataChannel(
-    connection: RTCPeerConnection,
-    label: string,
-    eventHandlers: RTCEventHandlers
+  connection: RTCPeerConnection,
+  label: string,
+  eventHandlers: RTCEventHandlers
 ) {
-    const dataChannel = connection.createDataChannel(label);
+  const dataChannel = connection.createDataChannel(label);
 
-    setEventHandlers(dataChannel, eventHandlers);
+  setEventHandlers(dataChannel, eventHandlers);
 }
 
 export async function sendMessage(
-    dataChannel: RTCDataChannel,
-    message: string
+  dataChannel: RTCDataChannel,
+  message: string
 ) {
-    dataChannel.send(message);
+  dataChannel.send(message);
 }

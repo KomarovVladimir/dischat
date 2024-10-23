@@ -4,4 +4,4 @@ import { messagesSelectors } from "./messagesSlice";
 
 export const getAllMessages = () => useAppSelector(messagesSelectors.selectAll);
 export const getMessageById = (id: EntityId) =>
-    useAppSelector((state) => messagesSelectors.selectById(state, id));
+  useAppSelector((state) => messagesSelectors.selectById(state, id));

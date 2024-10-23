@@ -5,7 +5,7 @@ import { renderWithProviders } from "common/utils/test-utils";
 import { ListItem } from "../ListItem";
 
 test("Renders ChatInput component", () => {
-    renderWithProviders(<ListItem text="123" />);
+  renderWithProviders(<ListItem text="123" />);
 
-    expect(screen.getByText("123")).toBeInTheDocument();
+  expect(screen.getByText("123")).toBeInTheDocument();
 });

@@ -9,10 +9,10 @@ const { baseRoute, room } = routes;
 
 //Rework the routes
 export const AppRoutes = () => (
-    <Routes>
-        <Route path={baseRoute} element={<ChatPage />}>
-            <Route path={room} element={<Chat />} />
-        </Route>
-        <Route path="*" element={<Navigate to={baseRoute} replace />} />
-    </Routes>
+  <Routes>
+    <Route path={baseRoute} element={<ChatPage />}>
+      <Route path={room} element={<Chat />} />
+    </Route>
+    <Route path="*" element={<Navigate to={baseRoute} replace />} />
+  </Routes>
 );

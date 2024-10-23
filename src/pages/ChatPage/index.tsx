@@ -8,20 +8,18 @@ import { Stack } from "@mui/material";
 import { UserSettingsDialog } from "features/userSettings/components/UserSettings";
 
 export const ChatPage = () => {
-    const { roomId } = useParams() as { roomId: string };
-    const room = roomExists(roomId);
+  const { roomId } = useParams() as { roomId: string };
+  const room = roomExists(roomId);
 
-    return (
-        <ChatLayout
-            leftPanel={
-                <Stack justifyContent="space-between" alignItems="center">
-                    <Rooms />
-                    <UserSettingsDialog />
-                </Stack>
-            }
-            chat={
-                room ? <Outlet /> : <Navigate to={routes.baseRoute} replace />
-            }
-        />
-    );
+  return (
+    <ChatLayout
+      leftPanel={
+        <Stack justifyContent="space-between" alignItems="center">
+          <Rooms />
+          <UserSettingsDialog />
+        </Stack>
+      }
+      chat={room ? <Outlet /> : <Navigate to={routes.baseRoute} replace />}
+    />
+  );
 };

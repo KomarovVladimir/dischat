@@ -13,35 +13,35 @@ import { store } from "../src/app/store/store";
 import { Provider } from "react-redux";
 
 const preview: Preview = {
-    parameters: {
-        actions: { argTypesRegex: "^on[A-Z].*" },
-        controls: {
-            matchers: {
-                color: /(background|color)$/i,
-                date: /Date$/i
-            }
-        },
-        backgrounds: {
-            default: "twitter",
-            values: [
-                { name: "white", value: "#ffffff" },
-                { name: "black", value: "#000000" },
-                { name: "dark", value: "#19212d" }
-            ]
-        }
+  parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i
+      }
     },
-    decorators: [
-        withRouter,
-        withThemeFromJSXProvider({
-            themes: {
-                light: lightTheme,
-                dark: darkTheme
-            },
-            defaultTheme: "dark",
-            Provider: ThemeProvider,
-            GlobalStyles: CssBaseline
-        }),
-        (story) => <Provider {...{ store }}>{story()}</Provider>
-    ]
+    backgrounds: {
+      default: "twitter",
+      values: [
+        { name: "white", value: "#ffffff" },
+        { name: "black", value: "#000000" },
+        { name: "dark", value: "#19212d" }
+      ]
+    }
+  },
+  decorators: [
+    withRouter,
+    withThemeFromJSXProvider({
+      themes: {
+        light: lightTheme,
+        dark: darkTheme
+      },
+      defaultTheme: "dark",
+      Provider: ThemeProvider,
+      GlobalStyles: CssBaseline
+    }),
+    (story) => <Provider {...{ store }}>{story()}</Provider>
+  ]
 };
 export default preview;

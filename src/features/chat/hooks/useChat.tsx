@@ -7,21 +7,21 @@ import { getAllMessages } from "../slice/selectors";
 import { EntityId } from "@reduxjs/toolkit";
 
 export const useChat = () => {
-    const { roomId } = useParams() as { roomId: EntityId };
+  const { roomId } = useParams() as { roomId: EntityId };
 
-    const messageIds = getMessageIdsByRoomId(roomId);
+  const messageIds = getMessageIdsByRoomId(roomId);
 
-    const allMessages = getAllMessages();
+  const allMessages = getAllMessages();
 
-    const messages = useMemo(() => {
-        return allMessages?.filter(({ id }) => messageIds?.includes(id));
-    }, [messageIds]);
+  const messages = useMemo(() => {
+    return allMessages?.filter(({ id }) => messageIds?.includes(id));
+  }, [messageIds]);
 
-    const endRef = createRef<HTMLDivElement>();
+  const endRef = createRef<HTMLDivElement>();
 
-    useEffect(() => {
-        endRef.current?.scrollIntoView();
-    }, [messages]);
+  useEffect(() => {
+    endRef.current?.scrollIntoView();
+  }, [messages]);
 
-    return { messages, endRef };
+  return { messages, endRef };
 };

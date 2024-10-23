@@ -12,46 +12,44 @@ import { nanoid } from "@reduxjs/toolkit";
 window.HTMLElement.prototype.scrollIntoView = function () {};
 
 describe("Rooms Feature", () => {
-    test("Renders rooms", () => {
-        const store = setupStore();
-        const {
-            payload: { name: name1 }
-        } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
-        const {
-            payload: { name: name2 }
-        } = store.dispatch(roomAdded({ id: nanoid(), name: "Test 2" }));
+  test("Renders rooms", () => {
+    const store = setupStore();
+    const {
+      payload: { name: name1 }
+    } = store.dispatch(roomAdded({ id: nanoid(), name: "Room 1" }));
+    const {
+      payload: { name: name2 }
+    } = store.dispatch(roomAdded({ id: nanoid(), name: "Test 2" }));
 
-        const { getByText } = renderWithProviders(
-            <MemoryRouter initialEntries={[routes.baseRoute]}>
-                <Routes>
-                    <Route path={routes.baseRoute} element={<Rooms />} />
-                </Routes>
-            </MemoryRouter>,
-            { store }
-        );
+    const { getByText } = renderWithProviders(
+      <MemoryRouter initialEntries={[routes.baseRoute]}>
+        <Routes>
+          <Route path={routes.baseRoute} element={<Rooms />} />
+        </Routes>
+      </MemoryRouter>,
+      { store }
+    );
 
-        expect(getByText(stringAvatar(name1).children)).toBeInTheDocument();
-        expect(getByText(stringAvatar(name2).children)).toBeInTheDocument();
-    });
+    expect(getByText(stringAvatar(name1).children)).toBeInTheDocument();
+    expect(getByText(stringAvatar(name2).children)).toBeInTheDocument();
+  });
 
-    test("Opens a dialog", () => {
-        const store = setupStore();
+  test("Opens a dialog", () => {
+    const store = setupStore();
 
-        const { getByText, getByPlaceholderText } = renderWithProviders(
-            <MemoryRouter initialEntries={[routes.baseRoute]}>
-                <Routes>
-                    <Route path={routes.baseRoute} element={<Rooms />} />
-                </Routes>
-            </MemoryRouter>,
-            { store }
-        );
+    const { getByText, getByPlaceholderText } = renderWithProviders(
+      <MemoryRouter initialEntries={[routes.baseRoute]}>
+        <Routes>
+          <Route path={routes.baseRoute} element={<Rooms />} />
+        </Routes>
+      </MemoryRouter>,
+      { store }
+    );
 
-        const addButton = getByText("+");
+    const addButton = getByText("+");
 
-        fireEvent.click(addButton);
+    fireEvent.click(addButton);
 
-        expect(
-            getByPlaceholderText("Write a new room name")
-        ).toBeInTheDocument();
-    });
+    expect(getByPlaceholderText("Write a new room name")).toBeInTheDocument();
+  });
 });

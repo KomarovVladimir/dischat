@@ -8,13 +8,13 @@ import { Room } from "./Room";
 import { useRooms } from "../hooks/useRooms";
 
 export const Rooms = () => {
-    const { rooms, creationOpen, handleOpen, handleClose } = useRooms();
+  const { rooms, creationOpen, handleOpen, handleClose } = useRooms();
 
-    return (
-        <List>
-            <RoomDialog onClose={handleClose} open={creationOpen} />
-            {rooms?.map((props, index) => <Room key={index} {...props} />)}
-            <ListItem icon={<Avatar>+</Avatar>} onClick={handleOpen} />
-        </List>
-    );
+  return (
+    <List>
+      <RoomDialog onClose={handleClose} open={creationOpen} />
+      {rooms?.map((props, index) => <Room key={index} {...props} />)}
+      <ListItem icon={<Avatar>+</Avatar>} onClick={handleOpen} />
+    </List>
+  );
 };

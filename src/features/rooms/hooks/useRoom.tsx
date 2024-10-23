@@ -2,13 +2,13 @@ import { EntityId } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router";
 
 export const useRoom = (id: EntityId) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleDelete = () => {};
+  const handleDelete = () => {};
 
-    const handleNavigate = () => {
-        navigate(`/rooms/${id}`);
-    };
+  const handleNavigate = () => {
+    navigate(`/rooms/${id}`);
+  };
 
-    return { handleDelete, handleNavigate };
+  return { handleDelete, handleNavigate };
 };

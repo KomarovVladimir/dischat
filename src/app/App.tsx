@@ -8,13 +8,13 @@ import { RootProvider } from "./providers/RootProvider";
 
 //TODO: Think on adding a redux persist
 export const App = () => (
-    <StrictMode>
-        <ErrorBoundary>
-            <RootProvider>
-                <HashRouter>
-                    <AppRoutes />
-                </HashRouter>
-            </RootProvider>
-        </ErrorBoundary>
-    </StrictMode>
+  <StrictMode>
+    <ErrorBoundary>
+      <RootProvider>
+        <HashRouter>
+          <AppRoutes />
+        </HashRouter>
+      </RootProvider>
+    </ErrorBoundary>
+  </StrictMode>
 );

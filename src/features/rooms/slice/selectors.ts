@@ -6,17 +6,17 @@ import { useAppSelector } from "app/hooks/storeHooks";
 import { roomsAdapter } from "./roomsSlice";
 
 export const roomsSelectors = roomsAdapter.getSelectors<AppState>(
-    (state) => state.rooms
+  (state) => state.rooms
 );
 
 //TODO: Use createSelector
 export const getMessageIdsByRoomId = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectById(state, id)?.messageIds);
+  useAppSelector((state) => roomsSelectors.selectById(state, id)?.messageIds);
 
 export const getAllRooms = () => useAppSelector(roomsSelectors.selectAll);
 
 export const getRoomById = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectById(state, id));
+  useAppSelector((state) => roomsSelectors.selectById(state, id));
 
 export const roomExists = (id: EntityId) =>
-    useAppSelector((state) => roomsSelectors.selectIds(state).includes(id));
+  useAppSelector((state) => roomsSelectors.selectIds(state).includes(id));
