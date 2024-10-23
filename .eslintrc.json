@@ -1,68 +1,68 @@
 {
-    "env": {
-        "es6": true,
-        "node": true,
-        "jest": true
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:storybook/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:import/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:storybook/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
-    ],
-    "settings": {
-        "react": {
-            "version": "detect"
-        },
-        "import/parsers": {
-            "@typescript-eslint/parser": [".ts", ".tsx"]
-        },
-        "import/resolver": {
-            "typescript": {
-                "alwaysTryTypes": true
-            }
-        }
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["import", "@typescript-eslint/eslint-plugin"],
-    "parserOptions": {
-        "ecmaVersion": 2017,
-        "sourceType": "module"
-    },
-    "rules": {
-        "endOfLine": "off",
-        "import/no-unresolved": "off",
-        "import/no-cycle": "error",
-        "no-restricted-imports": [
-            "error",
-            {
-                "patterns": ["@mui/*/*/*"]
-            }
-        ],
-        "prettier/prettier": [
-            "error",
-            {
-                "semi": true,
-                "endOfLine": "auto",
-                "trailingComma": "none",
-                "singleQuote": false,
-                "tabWidth": 4,
-                "printWidth": 80
-            }
-        ],
-        "quotes": ["error", "double"],
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": [
-            "error",
-            {
-                "args": "none"
-            }
-        ],
-        "no-empty": "warn"
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
     }
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["import", "@typescript-eslint/eslint-plugin"],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "rules": {
+    "endOfLine": "off",
+    "import/no-unresolved": "off",
+    "import/no-cycle": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["@mui/*/*/*"]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": true,
+        "endOfLine": "auto",
+        "trailingComma": "none",
+        "singleQuote": false,
+        "tabWidth": 2,
+        "printWidth": 80
+      }
+    ],
+    "quotes": ["error", "double"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ],
+    "no-empty": "warn"
+  }
 }
